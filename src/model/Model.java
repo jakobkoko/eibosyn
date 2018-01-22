@@ -1,6 +1,6 @@
 package model;
 
-public class Main {
+public class Model {
 
 	public static void main(String[] args) {
 		

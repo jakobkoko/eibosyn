@@ -15,11 +15,9 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 
         BorderPane borderPane = new BorderPane();
-        SequencePane sequencePane = new SequencePane(5, 8);
-        sequencePane.setPrefWidth(500);
-        sequencePane.setAlignment(Pos.BASELINE_CENTER);
+        CenterContainer center = new CenterContainer();
 
-        borderPane.setCenter(sequencePane);
+        borderPane.setCenter(center);
         Scene scene = new Scene(borderPane);
 
         String css = this.getClass().getResource("style.css").toExternalForm();
@@ -28,7 +26,7 @@ public class Main extends Application {
         primaryStage.setTitle("Hello World");
         primaryStage.setWidth(900);
         primaryStage.setHeight(600);
-        primaryStage.setFullScreen(true);
+        primaryStage.setFullScreen(false);
         primaryStage.setScene(scene);
         primaryStage.show();
 

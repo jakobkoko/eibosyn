@@ -20,7 +20,7 @@ public class SliderBox extends VBox {
         slider.setLabelFormatter(new StringConverter<Double>() {
             @Override
             public String toString(Double n) {
-                if(label.getText().equalsIgnoreCase("balance")) {
+                if(label.getText().equalsIgnoreCase("Balance")) {
                     if (n < 1) return "L";
                     else if (n > 99) return "R";
                 } else {

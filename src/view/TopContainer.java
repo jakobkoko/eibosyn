@@ -22,6 +22,8 @@ public class TopContainer {
 		
 		fileMenu.getItems().addAll(openMenuItem, saveMenuItem);
 		menuBar.getMenus().add(fileMenu);
+		
+		int x;
 	}
 	
 	

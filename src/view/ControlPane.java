@@ -17,6 +17,8 @@ public class ControlPane extends HBox {
         volumeSlider = new Slider();
         volumeSlider.setOrientation(Orientation.VERTICAL);
 
+        this.setAlignment(Pos.BASELINE_CENTER);
+
         this.getChildren().addAll(playButton, volumeSlider);
     }
 }

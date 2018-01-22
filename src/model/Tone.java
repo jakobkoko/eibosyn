@@ -25,24 +25,46 @@ public class Tone implements Instrument {
 	private float decTime;
 	private final float relTime = 0.001f;
 	private AudioOutput out;
+	private ArrayList<UGen> filterList;
 	private Delay delay;
-	private BitCrush bitCrush;
 	private MoogFilter moog;
-	
+	private BitCrush bitCrush;
+	private UGen patchChain;
+
 	public Tone(Frequency freq, float amp, AudioOutput out) {
 		this.osc = new Oscil(freq, amp, Waves.QUARTERPULSE);
 		this.adsr = new ADSR(1 ,attTime, decTime - attTime, 1);
 		this.out = out;
-		filters = new ArrayList<UGen>();
-		delay = new Delay(0.2f, 0.1f, true);
-		bitCrush = new BitCrush(1, 44100);
-		moog = new MoogFilter(2000, 0f, MoogFilter.Type.LP);
-		osc.patch(moog);
-		moog.patch(bitCrush);
+		this.filterList = new ArrayList<>();
+		this.delay = new Delay(0.2f, 0.1f, true);
+		this.moog = new MoogFilter(2000, 0f, MoogFilter.Type.LP);
+		this.bitCrush = new BitCrush(1, 44100);
+		osc.patch(adsr);
 	}
-	
-	public void addFilter(UGen filter) {
-		filters.add(filter);
+
+	public void updateFilters() {
+		// Everytime updateFilters is called we repatch the tone;
+		patchChain = osc;
+		for(UGen filter : filterList) {
+			patchChain.patch(filter);
+			patchChain = filter;
+		}
+		patchChain.patch(adsr);
+	}
+	public void switchDelay() {
+		if(!filterList.contains(delay)) filterList.add(delay);
+		else filterList.remove(delay);
+		updateFilters();
+	}
+	public void switchMoog() {
+		if(!filterList.contains(moog)) filterList.add(moog);
+		else filterList.remove(moog);
+		updateFilters();
+	}
+	public void switchBitCrush() {
+		if(!filterList.contains(bitCrush)) filterList.add(bitCrush);
+		else filterList.remove(bitCrush);
+		updateFilters();
 	}
 
 	public void removeFilter(UGen filter) {
@@ -83,7 +105,6 @@ public class Tone implements Instrument {
 	
 	@Override
 	public void noteOn(float duration) {
-		bitCrush.patch(adsr);
 		adsr.noteOn();
 		adsr.patch(out);
 	}
@@ -91,7 +112,6 @@ public class Tone implements Instrument {
 	@Override
 	public void noteOff() {
 		adsr.noteOff();
-		bitCrush.unpatch(adsr);
 		adsr.unpatchAfterRelease(out);
 	}
 

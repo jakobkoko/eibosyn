@@ -42,7 +42,6 @@ public class Player {
 		toneList.addTone(tone6);
 		toneList.addTone(tone7);
 		toneList.addTone(tone8);
-		float i = 0;
 
 		out.setTempo(bpm);
 
@@ -50,6 +49,7 @@ public class Player {
 			t.updateADSR_ToTempo(out.getTempo(), BeatType.SIXTEENTHS);
 		}
 
+		float i = 0;
 		for(int h = 0; h < 100; h++) {
 			for (Tone t : toneList.getList()) {
 

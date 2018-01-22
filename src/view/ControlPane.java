@@ -2,23 +2,29 @@ package view;
 
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class ControlPane extends HBox {
 
-    Button playButton;
-    Slider volumeSlider;
-
+    private Button playButton;
+    private SliderBox volume;
+    private SliderBox balance;
+    private SliderBox echo;
 
     public ControlPane() {
         playButton = new Button("Play");
-        volumeSlider = new Slider();
-        volumeSlider.setOrientation(Orientation.VERTICAL);
+        volume = new SliderBox("volume");
+        balance = new SliderBox("balance");
+        echo = new SliderBox("echo");
 
-        this.setAlignment(Pos.BASELINE_CENTER);
+        this.setStyle("-fx-background-color: red");
+        this.setSpacing(30);
 
-        this.getChildren().addAll(playButton, volumeSlider);
+        this.getChildren().addAll(playButton, volume, balance, echo);
     }
 }

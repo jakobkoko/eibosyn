@@ -22,15 +22,16 @@ public class Tone implements Instrument {
 	private float amp;
 	private Oscil osc;
 	private ADSR adsr;
-	private final float attTime = 0.001f;
+	private final float attTime = 0.000001f;
 	private float decTime;
-	private final float relTime = 0.001f;
+	private final float relTime = 0.000001f;
 	private AudioOutput out;
 	private ArrayList<UGen> filterList;
 	private Delay delay;
 	private MoogFilter moog;
 	private BitCrush bitCrush;
 	private UGen patchChain;
+	private boolean filtered;
 
 	public Tone(Frequency frequency, float amp, AudioOutput out) {
 		this.freq = frequency;
@@ -49,11 +50,12 @@ public class Tone implements Instrument {
 	public void updateFilters() {
 		// Everytime updateFilters is called we repatch the tone;
 		osc.unpatch(adsr);
+		if(filtered) patchChain.unpatch(adsr);
 		patchChain = osc;
 		for(UGen filter : filterList) {
-			System.out.println(1);
 			patchChain.patch(filter);
 			patchChain = filter;
+			filtered = true;
 		}
 		patchChain.patch(adsr);
 	}
@@ -90,7 +92,7 @@ public class Tone implements Instrument {
 	}
 
 	public void updateADSR_ToTempo(float bpm, BeatType beatType) {
-		decTime = 60 / bpm;
+		decTime = 60 / bpm; // = 1
 
 		switch(beatType) {
 			case WHOLE: decTime *= 4;
@@ -101,12 +103,12 @@ public class Tone implements Instrument {
 				break;
 			case EIGHTHS: decTime /= 2;
 				break;
-			case SIXTEENTHS: decTime /= 4;
+			case SIXTEENTHS: decTime /= 4; // = 0.25
 				break;
 			case THIRTY_SECONDS: decTime /= 8 ;
 				break;
 		}
-		adsr.setParameters(1, attTime, decTime - attTime, 0, relTime, 0, 0);
+		adsr.setParameters(1, attTime, decTime - attTime - relTime, 0, relTime, 0, 0);
 	}
 
 	@Override
@@ -174,11 +176,11 @@ public class Tone implements Instrument {
 	}
 
 	public void setFrequency(Frequency frequency) {
-		osc.unpatch(adsr);
 		osc.setFrequency(frequency);
-		updateFilters();
-		osc.patch(adsr);
-
+		if(filterList.size() > 0) {
+			osc.unpatch(adsr);
+			updateFilters();
+		}
 	}
 
 

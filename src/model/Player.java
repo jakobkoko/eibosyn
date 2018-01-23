@@ -10,7 +10,7 @@ public class Player {
 	private SimpleMinim minim;
 	private AudioOutput out;
 	private ToneList toneList = new ToneList();
-	private float bpm = 120;
+	private float bpm = 240;
 	private Tone currentTone;
 
 	public void setToneList(int index, String note) {
@@ -51,7 +51,7 @@ public class Player {
 		out.setTempo(bpm);
 
 		for (Tone t : toneList.getList()) {
-			t.updateADSR_ToTempo(out.getTempo(), BeatType.SIXTEENTHS);
+			t.updateADSR_ToTempo(out.getTempo(), BeatType.WHOLE);
 		}
 
 		Looper looper = new Looper(toneList, out);

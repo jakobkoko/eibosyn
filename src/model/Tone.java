@@ -32,7 +32,7 @@ public class Tone implements Instrument {
 	private UGen patchChain;
 
 	public Tone(Frequency freq, float amp, AudioOutput out) {
-		this.osc = new Oscil(freq, amp, Waves.QUARTERPULSE);
+		this.osc = new Oscil(freq, amp, Waves.SINE);
 		this.adsr = new ADSR(1 ,attTime, decTime - attTime, 1);
 		this.out = out;
 		this.filterList = new ArrayList<>();
@@ -40,12 +40,15 @@ public class Tone implements Instrument {
 		this.moog = new MoogFilter(2000, 0f, MoogFilter.Type.LP);
 		this.bitCrush = new BitCrush(1, 44100);
 		osc.patch(adsr);
+		switchBitCrush();
+		switchBitCrush();
 	}
 
 	public void updateFilters() {
 		// Everytime updateFilters is called we repatch the tone;
 		patchChain = osc;
 		for(UGen filter : filterList) {
+			System.out.println(1);
 			patchChain.patch(filter);
 			patchChain = filter;
 		}

@@ -1,0 +1,14 @@
+.button {
+    -fx-border-radius: 0;
+}
+
+/* active tone buttons */
+#active {
+    -fx-background-color: red;
+    -fx-border-radius: 0;
+}
+
+/* active effect buttons */
+#activeEffect {
+    -fx-background-color: darksalmon;
+}

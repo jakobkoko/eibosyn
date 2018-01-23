@@ -19,7 +19,9 @@ public class View extends Application {
 
         BorderPane borderPane = new BorderPane();
         CenterContainer center = new CenterContainer();
+        TopContainer top = new TopContainer();
 
+        borderPane.setTop(top);
         borderPane.setCenter(center);
         Scene scene = new Scene(borderPane);
 

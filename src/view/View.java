@@ -10,15 +10,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
+import model.Player;
 
 public class View extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-
+        Player player = new Player();
         BorderPane borderPane = new BorderPane();
-        CenterContainer center = new CenterContainer();
+        CenterContainer center = new CenterContainer(player);
         TopContainer top = new TopContainer();
 
         borderPane.setTop(top);
@@ -34,8 +35,9 @@ public class View extends Application {
         primaryStage.setFullScreen(false);
         primaryStage.setScene(scene);
         primaryStage.show();
-
     }
+
+
 
 
     public static void main(String[] args) {

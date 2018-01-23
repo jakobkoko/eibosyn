@@ -1,5 +1,7 @@
 package model;
 
+import ddf.minim.ugens.Frequency;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -38,6 +40,10 @@ public class ToneList implements Iterable<Tone>{
 			return list.get(listIndex);
 		}
 		return list.get(listIndex);
+	}
+
+	public void setTone(int index, String note) {
+		list.get(index).setFrequency(Frequency.ofPitch(note));
 	}
 	
 	public Tone getCurrentTone() {

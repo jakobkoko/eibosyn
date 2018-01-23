@@ -18,7 +18,8 @@ import ddf.minim.ugens.Waves;
 public class Tone implements Instrument {
 
 	private List<UGen> filters;
-	private Frequency frequency;
+	private Frequency freq;
+	private float amp;
 	private Oscil osc;
 	private ADSR adsr;
 	private final float attTime = 0.001f;
@@ -31,7 +32,9 @@ public class Tone implements Instrument {
 	private BitCrush bitCrush;
 	private UGen patchChain;
 
-	public Tone(Frequency freq, float amp, AudioOutput out) {
+	public Tone(Frequency frequency, float amp, AudioOutput out) {
+		this.freq = frequency;
+		this.amp = amp;
 		this.osc = new Oscil(freq, amp, Waves.SINE);
 		this.adsr = new ADSR(1 ,attTime, decTime - attTime, 1);
 		this.out = out;
@@ -41,11 +44,11 @@ public class Tone implements Instrument {
 		this.bitCrush = new BitCrush(1, 44100);
 		osc.patch(adsr);
 		switchBitCrush();
-		switchBitCrush();
 	}
 
 	public void updateFilters() {
 		// Everytime updateFilters is called we repatch the tone;
+		osc.unpatch(adsr);
 		patchChain = osc;
 		for(UGen filter : filterList) {
 			System.out.println(1);
@@ -75,7 +78,7 @@ public class Tone implements Instrument {
 	}
 
 	public Frequency getFrequency() {
-		return this.frequency;
+		return this.freq;
 	}
 
 	public void setFrequency(float hz) {
@@ -116,6 +119,10 @@ public class Tone implements Instrument {
 	public void noteOff() {
 		adsr.noteOff();
 		adsr.unpatchAfterRelease(out);
+	}
+
+	public String toString() {
+		return freq.toString();
 	}
 
 	public List<UGen> getFilters() {
@@ -167,7 +174,11 @@ public class Tone implements Instrument {
 	}
 
 	public void setFrequency(Frequency frequency) {
-		this.frequency = frequency;
+		osc.unpatch(adsr);
+		osc.setFrequency(frequency);
+		updateFilters();
+		osc.patch(adsr);
+
 	}
 
 

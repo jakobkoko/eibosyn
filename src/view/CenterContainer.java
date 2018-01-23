@@ -2,14 +2,17 @@ package view;
 
 import javafx.geometry.Pos;
 import javafx.scene.layout.VBox;
+import model.Player;
 
 public class CenterContainer extends VBox {
 
     private SequencePane sequencePane;
     private ControlPane controlPane;
+    private Player player;
 
-    public CenterContainer() {
-        sequencePane = new SequencePane(5,8);
+    public CenterContainer(Player p) {
+        player = p;
+        sequencePane = new SequencePane(5,8, player);
         controlPane = new ControlPane();
 
         this.setStyle("-fx-background-color: green");

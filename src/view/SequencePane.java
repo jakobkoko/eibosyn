@@ -2,6 +2,7 @@ package view;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
+import model.Player;
 
 import java.util.ArrayList;
 
@@ -11,8 +12,10 @@ public class SequencePane extends HBox {
     private int octave;
     private ArrayList<Label> toneNames;
     private VBox toneNamesBox;
+    private Player player;
 
-    public SequencePane(int octave, int toneRowNumber) {
+    public SequencePane(int octave, int toneRowNumber, Player p) {
+        player = p;
         this.octave = octave;
         toneSequence = new ArrayList<>();
         toneNames = new ArrayList<>();
@@ -37,8 +40,8 @@ public class SequencePane extends HBox {
         this.getChildren().add(toneNamesBox);
 
         for (int i = 0; i < toneRowNumber; i += 1) {
-            toneSequence.add(new ToneCol());
-            this.getChildren().add(new ToneCol());
+            toneSequence.add(new ToneCol(i, player));
+            this.getChildren().add(toneSequence.get(i));
         }
 
     }

@@ -10,8 +10,13 @@ public class Player {
 	private SimpleMinim minim;
 	private AudioOutput out;
 	private ToneList toneList = new ToneList();
-	private float bpm = 100;
+	private float bpm = 120;
 	private Tone currentTone;
+
+	public void setToneList(int index, String note) {
+		//toneList.setTone(index, note);
+		toneList.getList().get(index).setFrequency(Frequency.ofPitch(note));
+	}
 
 	public Player() {
 		// Instantiate new minim
@@ -49,38 +54,22 @@ public class Player {
 			t.updateADSR_ToTempo(out.getTempo(), BeatType.SIXTEENTHS);
 		}
 
-		float i = 0;
+		Looper looper = new Looper(toneList, out);
+
+		/*
+		i = 0;
 		for(int h = 0; h < 100; h++) {
 			for (Tone t : toneList.getList()) {
 
 				out.playNote(i, BeatType.SIXTEENTHS.getValue(), t);
 				i += BeatType.SIXTEENTHS.getValue();
-
-				// try {
-				// Thread.sleep((long) ((t.getDecTime() + t.getAttTime()) *
-				// 1000));
-				// } catch (InterruptedException e) {
-				// // TODO Auto-generated catch block
-				// e.printStackTrace();
 			}
 		}
+		*/
 	}
 
-	// int var = 0;
-	// while (true) {
-	//
-	// currentTone = toneList.getList().get(var);
-	// i = 0;
-	// out.playNote(i, BeatType.SIX.getValue(), currentTone);
-	// try {
-	// Thread.sleep((long) ((BeatType.THIRTY_SECONDS.getValue()) * 1000));
-	// } catch (InterruptedException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	// var += 1;
-	// if(var == 4) var = 0;
-	// }
+
+
 
 	// for(int j = 0; j < 17; j++) {
 	// out.playNote(j, 1, toneList.getNextTone());

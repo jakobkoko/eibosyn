@@ -6,20 +6,26 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import model.Player;
+
 import java.util.ArrayList;
 
 public class ToneCol extends VBox {
 
     private ArrayList<ToneButton> toneButtons;
     private ArrayList<EffectButton> effectButtons;
-    private final String[] tones = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "B", "H"};
+    private final String[] tones = {"C5", "C#5", "D5", "D#5", "E5", "F5", "F#5", "G5", "G#5", "A5", "B5", "H5"};
     private ToneButton activeTone;
     private VBox toneSelector;
     private GridPane effectSelector;
     private ArrayList<EffectButton> activeEffects;
+    private String curTone;
+    private Player player;
+    private int index;
 
-    public ToneCol() {
-
+    public ToneCol(int index, Player player) {
+        this.player = player;
+        this.index = index;
         toneButtons = new ArrayList<>();
         activeTone = new ToneButton("E");
         effectButtons = new ArrayList<>();
@@ -33,6 +39,7 @@ public class ToneCol extends VBox {
             if(event.getSource() != activeTone) {
                 activeTone = (ToneButton) event.getSource();
                 activeTone.setId("active");
+                this.player.setToneList(this.index, activeTone.getTone());
                 System.out.println(activeTone.getTone());
             } else {
                 activeTone = new ToneButton("E");

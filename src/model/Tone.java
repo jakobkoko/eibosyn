@@ -70,39 +70,39 @@ public class Tone implements Instrument {
 	public void removeFilter(UGen filter) {
 		filters.remove(filter);
 	}
-	
+
 	public Frequency getFrequency() {
 		return this.frequency;
 	}
-	
+
 	public void setFrequency(float hz) {
 		this.osc.setFrequency(hz);
 	}
-	
+
 	public void updateAmplitude(float newAmp) {
 		this.osc.setAmplitude(newAmp);
 	}
 
 	public void updateADSR_ToTempo(float bpm, BeatType beatType) {
 		decTime = 60 / bpm;
-		
+
 		switch(beatType) {
-		case WHOLE: decTime *= 4;
-		break;
-		case HALF: decTime *= 2;
-		break;
-		case QUARTER: decTime *= 1;
-		break;
-		case EIGHTHS: decTime /= 2;
-		break;
-		case SIXTEENTHS: decTime /= 4;
-		break;
-		case THIRTY_SECONDS: decTime /= 8 ;
-		break;
+			case WHOLE: decTime *= 4;
+				break;
+			case HALF: decTime *= 2;
+				break;
+			case QUARTER: decTime *= 1;
+				break;
+			case EIGHTHS: decTime /= 2;
+				break;
+			case SIXTEENTHS: decTime /= 4;
+				break;
+			case THIRTY_SECONDS: decTime /= 8 ;
+				break;
 		}
 		adsr.setParameters(1, attTime, decTime - attTime, 0, relTime, 0, 0);
 	}
-	
+
 	@Override
 	public void noteOn(float duration) {
 		adsr.noteOn();
@@ -166,6 +166,6 @@ public class Tone implements Instrument {
 	public void setFrequency(Frequency frequency) {
 		this.frequency = frequency;
 	}
-	
-	
+
+
 }

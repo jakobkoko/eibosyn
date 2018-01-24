@@ -12,9 +12,8 @@ public class Looper extends Thread {
         float i = 0;
         int var = 0;
         Tone currentTone;
-        float bpm = 240;
+        float bpm = 4000;
         float beattypedur = BeatType.WHOLE.getValue();
-        //                                             BPM
         float loopduration = 2 * 4 * ((float)60/(float)bpm) * 4 * 1000;
         while(true) {
             out.playNote(i, beattypedur, toneList.getList().get(var));

@@ -10,7 +10,7 @@ public class Player {
 	private SimpleMinim minim;
 	private AudioOutput out;
 	private ToneList toneList = new ToneList();
-	private float bpm = 240;
+	private float bpm = 4000;
 	private Tone currentTone;
 
 	public void setToneList(int index, String note) {

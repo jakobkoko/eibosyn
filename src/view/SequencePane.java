@@ -44,6 +44,8 @@ public class SequencePane extends HBox {
             this.getChildren().add(toneSequence.get(i));
         }
 
+
+
     }
 
     // getoctave

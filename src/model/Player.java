@@ -84,7 +84,7 @@ public class Player {
 		}
 		*/
 
-		out.setBalance(-200f);
+
 	}
 
 	public void setBpm(float bpm) {
@@ -93,6 +93,10 @@ public class Player {
 
 	public Looper getLooper() {
 		return looper;
+	}
+
+	public void setBalance(float f) {
+		out.setBalance(f);
 	}
 
 	public void quit() {

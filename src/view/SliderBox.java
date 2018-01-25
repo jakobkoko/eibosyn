@@ -27,13 +27,12 @@ public class SliderBox extends VBox {
         slider.setMin(min);
         slider.setValue(min);
         slider.setShowTickLabels(true);
-        /*
         slider.setLabelFormatter(new StringConverter<Double>() {
             @Override
             public String toString(Double n) {
                 if(label.getText().equalsIgnoreCase("balance")) {
-                    if (n < 1) return "L";
-                    else if (n > 99) return "R";
+                    if (n < 0) return "L";
+                    else if (n > 0) return "R";
                 } else {
                     if(n < 1) return "0";
                     else if( n > 99) return String.valueOf(n+1);
@@ -47,7 +46,7 @@ public class SliderBox extends VBox {
             }
 
         });
-        */
+
         slider.setOrientation(Orientation.VERTICAL);
         this.setAlignment(Pos.CENTER);
         this.getChildren().addAll(slider, label);

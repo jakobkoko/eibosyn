@@ -24,7 +24,7 @@ public class ControlPane extends HBox {
     public ControlPane(Player player) {
         playButton = new Button("Play");
         volume = new SliderBox("volume", player,100,0);
-        balance = new SliderBox("balance", player, 100, 0);
+        balance = new SliderBox("balance", player, 1, -1);
         echo = new SliderBox("echo", player, 100, 0);
         bpm = new SliderBox("bpm", player, 3600, 120);
         this.player = player;
@@ -36,6 +36,13 @@ public class ControlPane extends HBox {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 player.setBpm(newValue.floatValue());
+            }
+        });
+
+        balance.getSlider().valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                player.setBalance(newValue.floatValue());
             }
         });
 

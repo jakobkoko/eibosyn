@@ -12,3 +12,7 @@
 #activeEffect {
     -fx-background-color: darksalmon;
 }
+
+#activeCol .button {
+    -fx-background-color: red;
+}

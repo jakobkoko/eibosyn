@@ -13,7 +13,7 @@ public class CenterContainer extends VBox {
     public CenterContainer(Player p) {
         player = p;
         sequencePane = new SequencePane(5,8, player);
-        controlPane = new ControlPane();
+        controlPane = new ControlPane(player);
 
         this.setStyle("-fx-background-color: green");
         sequencePane.setAlignment(Pos.BASELINE_CENTER);

@@ -1,5 +1,7 @@
 package view;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.input.MouseEvent;
@@ -22,6 +24,7 @@ public class ToneCol extends VBox {
     private String curTone;
     private Player player;
     private int index;
+    private boolean active;
 
     public ToneCol(int index, Player player) {
         this.player = player;
@@ -45,6 +48,18 @@ public class ToneCol extends VBox {
                 activeTone = new ToneButton("E");
             }
         };
+
+        player.getLooper().getCurToneIndex().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                if(newValue.intValue() == index) {
+                    ToneCol.this.setId("activeCol");
+                } else if(oldValue.intValue() == index) {
+                    ToneCol.this.setId("inactiveCol");
+                }
+            }
+        });
+
 
         EventHandler<MouseEvent> effectButtonListener = (EventHandler<MouseEvent>) event -> {
             EffectButton source = (EffectButton) event.getSource();

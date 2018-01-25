@@ -5,13 +5,17 @@ import ddf.minim.ugens.Frequency;
 import ddf.minim.ugens.GranulateSteady;
 import ddf.minim.ugens.Waves;
 import de.hsrm.mi.eibo.simpleplayer.SimpleMinim;
+import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 
 public class Player {
 	private SimpleMinim minim;
 	private AudioOutput out;
 	private ToneList toneList = new ToneList();
-	private float bpm = 4000;
 	private Tone currentTone;
+	private SimpleFloatProperty bpm;
+	private Looper looper;
 
 	public void setToneList(int index, String note) {
 		//toneList.setTone(index, note);
@@ -20,6 +24,8 @@ public class Player {
 
 	public Player() {
 		// Instantiate new minim
+		bpm = new SimpleFloatProperty();
+		bpm.set(600);
 		minim = new SimpleMinim(true);
 
 		// use the getLineOut method of the Minim object to get an AudioOutput
@@ -48,13 +54,24 @@ public class Player {
 		toneList.addTone(tone7);
 		toneList.addTone(tone8);
 
-		out.setTempo(bpm);
-
+		out.setTempo(bpm.floatValue());
 		for (Tone t : toneList.getList()) {
 			t.updateADSR_ToTempo(out.getTempo(), BeatType.WHOLE);
 		}
 
-		Looper looper = new Looper(toneList, out);
+		looper = new Looper(toneList, out, bpm);
+
+		bpm.addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				out.setTempo(newValue.floatValue());
+				for (Tone t : toneList.getList()) {
+					t.updateADSR_ToTempo(out.getTempo(), BeatType.WHOLE);
+				}
+				looper.setBpm(newValue);
+			}
+		});
+
 
 		/*
 		i = 0;
@@ -66,9 +83,22 @@ public class Player {
 			}
 		}
 		*/
+
+		out.setBalance(-200f);
 	}
 
+	public void setBpm(float bpm) {
+		this.bpm.set(bpm);
+	}
 
+	public Looper getLooper() {
+		return looper;
+	}
+
+	public void quit() {
+		out.close();
+		System.exit(1);
+	}
 
 
 	// for(int j = 0; j < 17; j++) {

@@ -6,6 +6,7 @@ import ddf.minim.ugens.GranulateSteady;
 import ddf.minim.ugens.Waves;
 import de.hsrm.mi.eibo.simpleplayer.SimpleMinim;
 import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
@@ -15,6 +16,7 @@ public class Player {
 	private ToneList toneList = new ToneList();
 	private Tone currentTone;
 	private SimpleFloatProperty bpm;
+	private SimpleObjectProperty<BeatType> beattype;
 	private Looper looper;
 
 	public void setToneList(int index, String note) {
@@ -23,16 +25,15 @@ public class Player {
 	}
 
 	public Player() {
-		// Instantiate new minim
 		bpm = new SimpleFloatProperty();
-		bpm.set(600);
+		beattype = new SimpleObjectProperty<BeatType>();
+
 		minim = new SimpleMinim(true);
 
-		// use the getLineOut method of the Minim object to get an AudioOutput
-		// object
+		bpm.set(120);
+		beattype.set(BeatType.WHOLE);
 		out = minim.getLineOut();
-
-		// create a sine wave Oscil, set to 440 Hz, at 0.5 amplitude
+		out.setTempo(bpm.floatValue());
 
 		currentTone = new Tone(Frequency.ofHertz(440), 1, out);
 
@@ -54,37 +55,32 @@ public class Player {
 		toneList.addTone(tone7);
 		toneList.addTone(tone8);
 
-		out.setTempo(bpm.floatValue());
-		for (Tone t : toneList.getList()) {
-			t.updateADSR_ToTempo(out.getTempo(), BeatType.WHOLE);
-		}
-
-		looper = new Looper(toneList, out, bpm);
+		looper = new Looper(toneList, out, bpm, beattype);
 
 		bpm.addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 				out.setTempo(newValue.floatValue());
 				for (Tone t : toneList.getList()) {
-					t.updateADSR_ToTempo(out.getTempo(), BeatType.WHOLE);
+					t.updateADSR_ToTempo(newValue.floatValue(), beattype.getValue());
 				}
 				looper.setBpm(newValue);
 			}
 		});
 
-
-		/*
-		i = 0;
-		for(int h = 0; h < 100; h++) {
-			for (Tone t : toneList.getList()) {
-
-				out.playNote(i, BeatType.SIXTEENTHS.getValue(), t);
-				i += BeatType.SIXTEENTHS.getValue();
+		beattype.addListener(new ChangeListener<BeatType>() {
+			@Override
+			public void changed(ObservableValue<? extends BeatType> observable, BeatType oldValue, BeatType newValue) {
+				for (Tone t : toneList.getList()) {
+					t.updateADSR_ToTempo(bpm.getValue(), newValue);
+				}
 			}
-		}
-		*/
+		});
 
+	}
 
+	public void play() {
+		looper.setPlaying();
 	}
 
 	public void setBpm(float bpm) {

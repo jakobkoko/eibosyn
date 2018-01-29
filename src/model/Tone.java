@@ -93,7 +93,6 @@ public class Tone implements Instrument {
 
 	public void updateADSR_ToTempo(float bpm, BeatType beatType) {
 		decTime = 60 / bpm; // = 1
-
 		switch(beatType) {
 			case WHOLE: decTime *= 4;
 				break;

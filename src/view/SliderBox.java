@@ -27,15 +27,21 @@ public class SliderBox extends VBox {
         slider.setMin(min);
         slider.setValue(min);
         slider.setShowTickLabels(true);
+        slider.setShowTickMarks(true);
         slider.setLabelFormatter(new StringConverter<Double>() {
             @Override
             public String toString(Double n) {
                 if(label.getText().equalsIgnoreCase("balance")) {
                     if (n < 0) return "L";
                     else if (n > 0) return "R";
+                } else if(label.getText().equalsIgnoreCase("beattype")) {
+                    if(n < 1) return "1";
+                    else if(n < 2) return "1/2";
+                    else if(n < 3) return "1/4";
+                    else if(n < 4) return "1/8";
                 } else {
                     if(n < 1) return "0";
-                    else if( n > 99) return String.valueOf(n+1);
+                    else if( n > 99) return String.valueOf(n);
                 }
                 return null;
             }

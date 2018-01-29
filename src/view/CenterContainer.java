@@ -11,16 +11,18 @@ public class CenterContainer extends VBox {
     private Player player;
 
     public CenterContainer(Player p) {
+
         player = p;
         sequencePane = new SequencePane(5,8, player);
         controlPane = new ControlPane(player);
 
-        this.setStyle("-fx-background-color: green");
         sequencePane.setAlignment(Pos.BASELINE_CENTER);
         controlPane.setAlignment(Pos.BASELINE_CENTER);
 
-        this.setSpacing(30);
+        sequencePane.setId("sequencePane");
+        controlPane.setId("controlPane");
 
+        this.setSpacing(30);
         this.getChildren().addAll(sequencePane, controlPane);
     }
 }

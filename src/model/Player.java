@@ -33,16 +33,16 @@ public class Player {
 		out = minim.getLineOut();
 		out.setTempo(bpm.floatValue());
 
-		currentTone = new Tone(Frequency.ofHertz(440), 1, out);
+		//currentTone = new Tone(Frequency.ofHertz(440), 0, out);
 
-		Tone tone1 = new Tone(Frequency.ofPitch("C"), 1, out);
-		Tone tone2 = new Tone(Frequency.ofPitch("E"), 1, out);
-		Tone tone3 = new Tone(Frequency.ofPitch("G"), 1, out);
-		Tone tone4 = new Tone(Frequency.ofPitch("B"), 1, out);
-		Tone tone5 = new Tone(Frequency.ofPitch("C5"), 1, out);
-		Tone tone6 = new Tone(Frequency.ofPitch("B"), 1, out);
-		Tone tone7 = new Tone(Frequency.ofPitch("G"), 1, out);
-		Tone tone8 = new Tone(Frequency.ofPitch("E"), 1, out);
+		Tone tone1 = new Tone(Frequency.ofPitch("C"), 0, out);
+		Tone tone2 = new Tone(Frequency.ofPitch("E"), 0, out);
+		Tone tone3 = new Tone(Frequency.ofPitch("G"), 0, out);
+		Tone tone4 = new Tone(Frequency.ofPitch("B"), 0, out);
+		Tone tone5 = new Tone(Frequency.ofPitch("C5"), 0, out);
+		Tone tone6 = new Tone(Frequency.ofPitch("B"), 0, out);
+		Tone tone7 = new Tone(Frequency.ofPitch("G"), 0, out);
+		Tone tone8 = new Tone(Frequency.ofPitch("E"), 0, out);
 
 		toneList.addTone(tone1);
 		toneList.addTone(tone2);

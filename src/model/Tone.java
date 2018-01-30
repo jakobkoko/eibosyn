@@ -212,4 +212,12 @@ public class Tone implements Instrument {
 			updateFilters();
 		}
 	}
+
+	public void unmute() {
+		updateAmplitude(1);
+	}
+
+	public void mute() {
+		updateAmplitude(0);
+	}
 }

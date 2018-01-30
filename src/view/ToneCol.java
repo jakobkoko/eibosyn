@@ -43,8 +43,10 @@ public class ToneCol extends VBox {
             if(event.getSource() != activeTone) {
                 activeTone = (ToneButton) event.getSource();
                 activeTone.setId("active");
+                this.player.getToneFromToneList(index).unmute();
                 this.player.setToneList(this.index, activeTone.getTone());
             } else {
+                this.player.getToneFromToneList(index).mute();
                 activeTone = new ToneButton("E");
             }
         };
@@ -88,6 +90,7 @@ public class ToneCol extends VBox {
 
         for(int i = 0; i<6; i+=1) {
             EffectButton btn = new EffectButton(i);
+            btn.setId("effectButton"+i);
             effectButtons.add(btn);
             btn.setPrefWidth(33);
             btn.setOnMouseClicked(effectButtonListener);

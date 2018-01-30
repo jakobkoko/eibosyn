@@ -32,7 +32,7 @@ public class View extends Application {
             scene.getStylesheets().add(css);
             primaryStage.setTitle("Hello World");
             primaryStage.setWidth(900);
-            primaryStage.setHeight(600);
+            primaryStage.setHeight(680);
             primaryStage.setFullScreen(false);
             primaryStage.setScene(scene);
             primaryStage.show();

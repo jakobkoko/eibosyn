@@ -19,8 +19,8 @@ public class Looper extends Thread {
         while(!interrupted()) {
             float i = 0;
             int var = 0;
-            float beattypedur = beattype.getValue();
             while (playing) {
+                float beattypedur = beattype.getValue();
                 out.playNote(i, beattypedur, toneList.getList().get(var));
                 long now = System.currentTimeMillis();
                 long goal = now + (long) (((float) 60 / bpm) * 4 * 1000);
@@ -52,8 +52,9 @@ public class Looper extends Thread {
         this.bpm = bpm.floatValue();
     }
 
-    public void setBeattype() {
-        for(Tone t : toneList) {
+    public void setBeattype(BeatType beattype) {
+        this.beattype = beattype;
+        for(Tone t : this.toneList.getList()) {
             t.updateADSR_ToTempo(out.getTempo(), beattype);
         }
     }

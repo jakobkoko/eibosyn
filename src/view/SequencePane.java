@@ -20,6 +20,7 @@ public class SequencePane extends HBox {
         toneSequence = new ArrayList<>();
         toneNames = new ArrayList<>();
         toneNamesBox = new VBox();
+        toneNamesBox.setId("toneNamesBox");
         toneNames.add(new Label("C"));
         toneNames.add(new Label("C#"));
         toneNames.add(new Label("D"));
@@ -35,19 +36,15 @@ public class SequencePane extends HBox {
 
         for(Label toneLabel : toneNames) {
             toneNamesBox.getChildren().addAll(toneLabel);
-            toneLabel.setPrefHeight(33);
         }
         this.getChildren().add(toneNamesBox);
 
         for (int i = 0; i < toneRowNumber; i += 1) {
             toneSequence.add(new ToneCol(i, player));
             this.getChildren().add(toneSequence.get(i));
+            toneSequence.get(i).setId("col"+i);
         }
 
     }
-
-    // getoctave
-    // setoctave
-    // toneSequence zusammenbauen
 
 }

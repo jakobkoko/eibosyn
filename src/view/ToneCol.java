@@ -9,6 +9,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import model.Player;
+import model.Tone;
 
 import java.util.ArrayList;
 
@@ -43,19 +44,21 @@ public class ToneCol extends VBox {
                 activeTone = (ToneButton) event.getSource();
                 activeTone.setId("active");
                 this.player.setToneList(this.index, activeTone.getTone());
-                System.out.println(activeTone.getTone());
             } else {
                 activeTone = new ToneButton("E");
             }
         };
 
         player.getLooper().getCurToneIndex().addListener(new ChangeListener<Number>() {
+            public String oldId = "col0";
+
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 if(newValue.intValue() == index) {
+                    this.oldId = ToneCol.this.getId();
                     ToneCol.this.setId("activeCol");
                 } else if(oldValue.intValue() == index) {
-                    ToneCol.this.setId("inactiveCol");
+                    ToneCol.this.setId(oldId);
                 }
             }
         });
@@ -63,14 +66,15 @@ public class ToneCol extends VBox {
 
         EventHandler<MouseEvent> effectButtonListener = (EventHandler<MouseEvent>) event -> {
             EffectButton source = (EffectButton) event.getSource();
-            if(activeEffects.contains(event.getSource())) {
-                activeEffects.remove(event.getSource());
+            if(activeEffects.contains(source)) {
+                activeEffects.remove(source);
                 source.setId("inactiveEffect");
             } else {
-                activeEffects.add((EffectButton) event.getSource());
+                activeEffects.add(source);
                 source.setId("activeEffect");
             }
-
+            int effectNumber = source.getEffectNumber();
+            this.player.getToneFromToneList(index).switchFilters(effectNumber);
         };
 
         for (String tone : tones) {
@@ -83,7 +87,7 @@ public class ToneCol extends VBox {
         }
 
         for(int i = 0; i<6; i+=1) {
-            EffectButton btn = new EffectButton();
+            EffectButton btn = new EffectButton(i);
             effectButtons.add(btn);
             btn.setPrefWidth(33);
             btn.setOnMouseClicked(effectButtonListener);

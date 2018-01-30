@@ -22,7 +22,9 @@ public class SliderBox extends VBox {
         this.max = max;
         this.min = min;
         slider = new Slider();
+        slider.setId("slider");
         label = new Label(text);
+        label.setId("label");
         slider.setMax(max);
         slider.setMin(min);
         slider.setValue(min);
@@ -32,13 +34,22 @@ public class SliderBox extends VBox {
             @Override
             public String toString(Double n) {
                 if(label.getText().equalsIgnoreCase("balance")) {
-                    if (n < 0) return "L";
-                    else if (n > 0) return "R";
+                    if (n == -1) return "L";
+                    if (n == 1) return "R";
                 } else if(label.getText().equalsIgnoreCase("beattype")) {
-                    if(n < 1) return "1";
-                    else if(n < 2) return "1/2";
-                    else if(n < 3) return "1/4";
-                    else if(n < 4) return "1/8";
+                    slider.setSnapToTicks(true);
+                    slider.setMajorTickUnit(1);
+                    if (n == 0) return "1/1";
+                    if (n == 1) return "1/2";
+                    if (n == 2) return "1/4";
+                    if (n == 3) return "1/8";
+                    if (n == 4) return "1/16";
+                    if (n == 5) return "1/32";
+                } else if(label.getText().equalsIgnoreCase("bpm")) {
+                    slider.setMajorTickUnit(100);
+                    if (n == 2400) return "2400";
+                    if (n == 1200) return "1200";
+                    if (n == 120) return "120";
                 } else {
                     if(n < 1) return "0";
                     else if( n > 99) return String.valueOf(n);

@@ -22,7 +22,6 @@ public class CenterContainer extends VBox {
         sequencePane.setId("sequencePane");
         controlPane.setId("controlPane");
 
-        this.setSpacing(30);
         this.getChildren().addAll(sequencePane, controlPane);
     }
 }

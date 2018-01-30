@@ -5,15 +5,9 @@ import java.util.List;
 
 import ddf.minim.AudioOutput;
 import ddf.minim.UGen;
-import ddf.minim.ugens.ADSR;
-import ddf.minim.ugens.BitCrush;
-import ddf.minim.ugens.Delay;
-import ddf.minim.ugens.Frequency;
-import ddf.minim.ugens.Instrument;
-import ddf.minim.ugens.MoogFilter;
-import ddf.minim.ugens.Oscil;
-import ddf.minim.ugens.Waveform;
-import ddf.minim.ugens.Waves;
+import ddf.minim.effects.HighPassSP;
+import ddf.minim.effects.LowPassSP;
+import ddf.minim.ugens.*;
 
 public class Tone implements Instrument {
 
@@ -30,6 +24,8 @@ public class Tone implements Instrument {
 	private Delay delay;
 	private MoogFilter moog;
 	private BitCrush bitCrush;
+	private LowPassSP lowpass;
+	private HighPassSP highpass;
 	private UGen patchChain;
 	private boolean filtered;
 
@@ -40,11 +36,12 @@ public class Tone implements Instrument {
 		this.adsr = new ADSR(1 ,attTime, decTime - attTime, 1);
 		this.out = out;
 		this.filterList = new ArrayList<>();
-		this.delay = new Delay(0.2f, 0.1f, true);
+		this.delay = new Delay( 0.4f, 0.5f, true, true );
 		this.moog = new MoogFilter(2000, 0f, MoogFilter.Type.LP);
 		this.bitCrush = new BitCrush(1, 44100);
+		this.lowpass = new LowPassSP(100, out.sampleRate());
+		this.highpass = new HighPassSP(freq.asHz(), out.sampleRate());
 		osc.patch(adsr);
-		switchBitCrush();
 	}
 
 	public void updateFilters() {
@@ -59,9 +56,43 @@ public class Tone implements Instrument {
 		}
 		patchChain.patch(adsr);
 	}
+	public void switchFilters(int effectNumber) {
+		switch (effectNumber) {
+			case 0:
+				switchDelay();
+				System.out.println("delay");
+				break;
+			case 1:
+				switchBitCrush();
+				System.out.println("bitcrush");
+				break;
+			case 2:
+				switchMoog();
+				System.out.println("moog");
+				break;
+			case 3:
+				switchLowpass();
+				System.out.println("lowpass");
+				break;
+			case 4:
+				switchHighpass();
+				System.out.println("highpass");
+				break;
+		}
+	}
 	public void switchDelay() {
 		if(!filterList.contains(delay)) filterList.add(delay);
 		else filterList.remove(delay);
+		updateFilters();
+	}
+	public void switchLowpass() {
+		if(!filterList.contains(lowpass)) filterList.add(lowpass);
+		else filterList.remove(lowpass);
+		updateFilters();
+	}
+	public void switchHighpass() {
+		if(!filterList.contains(highpass)) filterList.add(highpass);
+		else filterList.remove(highpass);
 		updateFilters();
 	}
 	public void switchMoog() {
@@ -181,6 +212,4 @@ public class Tone implements Instrument {
 			updateFilters();
 		}
 	}
-
-
 }

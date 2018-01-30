@@ -26,11 +26,17 @@ public class ControlPane extends HBox {
 
     public ControlPane(Player player) {
         playButton = new Button("Play");
+        playButton.setId("playbutton");
         volume = new SliderBox("volume", player,100,0);
+        volume.setId("volumeslider");
         balance = new SliderBox("balance", player, 1, -1);
+        balance.setId("balanceslider");
         echo = new SliderBox("echo", player, 100, 0);
-        bpm = new SliderBox("bpm", player, 3600, 120);
-        beattype = new SliderBox("beattype", player, 10, 0);
+        echo.setId("echoslider");
+        bpm = new SliderBox("bpm", player, 2400, 120);
+        bpm.setId("bpmslider");
+        beattype = new SliderBox("beattype", player, 5, 0);
+        beattype.setId("beattypeslider");
         this.player = player;
 
         this.setSpacing(30);
@@ -46,6 +52,13 @@ public class ControlPane extends HBox {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 player.setBalance(newValue.floatValue());
+            }
+        });
+
+        beattype.getSlider().valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                player.setBeattype(newValue.intValue());
             }
         });
 

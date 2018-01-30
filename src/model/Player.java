@@ -2,8 +2,6 @@ package model;
 
 import ddf.minim.AudioOutput;
 import ddf.minim.ugens.Frequency;
-import ddf.minim.ugens.GranulateSteady;
-import ddf.minim.ugens.Waves;
 import de.hsrm.mi.eibo.simpleplayer.SimpleMinim;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -71,9 +69,7 @@ public class Player {
 		beattype.addListener(new ChangeListener<BeatType>() {
 			@Override
 			public void changed(ObservableValue<? extends BeatType> observable, BeatType oldValue, BeatType newValue) {
-				for (Tone t : toneList.getList()) {
-					t.updateADSR_ToTempo(bpm.getValue(), newValue);
-				}
+				looper.setBeattype(newValue);
 			}
 		});
 
@@ -100,21 +96,30 @@ public class Player {
 		System.exit(1);
 	}
 
+    public Tone getToneFromToneList(int index) {
+		return toneList.getList().get(index);
+    }
 
-	// for(int j = 0; j < 17; j++) {
-	// out.playNote(j, 1, toneList.getNextTone());
-	// }
-
-	// currentTone = toneList.getCurrentTone();
-	//
-	// GranulateSteady a = new GranulateSteady(0.25f, 0.25f, 0.1f);
-	//
-	// currentTone.patch(a);
-	//
-	// a.patch(out);
-
-	// TimeThread timeThread = new TimeThread("lol", out, currentTone,
-	// toneList);
-	// timeThread.setPriority(Thread.MAX_PRIORITY);
-	// timeThread.start();
+	public void setBeattype(int beattype) {
+		switch(beattype) {
+			case 0:
+				this.beattype.set(BeatType.WHOLE);
+				break;
+			case 1:
+				this.beattype.set(BeatType.HALF);
+				break;
+			case 2:
+				this.beattype.set(BeatType.QUARTER);
+				break;
+			case 3:
+				this.beattype.set(BeatType.EIGHTHS);
+				break;
+			case 4:
+				this.beattype.set(BeatType.SIXTEENTHS);
+				break;
+			case 5:
+				this.beattype.set(BeatType.THIRTY_SECONDS);
+				break;
+		}
+	}
 }

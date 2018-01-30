@@ -1,11 +1,10 @@
 package view;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
 import model.Player;
@@ -14,6 +13,7 @@ public class SliderBox extends VBox {
 
     private Slider slider;
     private Label label;
+    private ImageView imgView;
     private Player player;
     private int max;
     private int min;
@@ -25,6 +25,11 @@ public class SliderBox extends VBox {
         slider.setId("slider");
         label = new Label(text);
         label.setId("label");
+        imgView = new ImageView();
+        imgView.setFitWidth(12);
+        imgView.setFitHeight(15);
+        imgView.setId("imageView");
+        
         slider.setMax(max);
         slider.setMin(min);
         slider.setValue(min);
@@ -66,7 +71,7 @@ public class SliderBox extends VBox {
 
         slider.setOrientation(Orientation.VERTICAL);
         this.setAlignment(Pos.CENTER);
-        this.getChildren().addAll(slider, label);
+        this.getChildren().addAll(slider, label, imgView);
     }
 
     public Slider getSlider() {

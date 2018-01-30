@@ -7,7 +7,14 @@ import ddf.minim.AudioOutput;
 import ddf.minim.UGen;
 import ddf.minim.effects.HighPassSP;
 import ddf.minim.effects.LowPassSP;
-import ddf.minim.ugens.*;
+import ddf.minim.ugens.ADSR;
+import ddf.minim.ugens.BitCrush;
+import ddf.minim.ugens.Delay;
+import ddf.minim.ugens.Frequency;
+import ddf.minim.ugens.Instrument;
+import ddf.minim.ugens.MoogFilter;
+import ddf.minim.ugens.Oscil;
+import ddf.minim.ugens.Waves;
 
 public class Tone implements Instrument {
 
@@ -56,25 +63,26 @@ public class Tone implements Instrument {
 		}
 		patchChain.patch(adsr);
 	}
-	public void switchFilters(int effectNumber) {
-		switch (effectNumber) {
-			case 0:
+	
+	public void switchFilters(EffectType effectType) {
+		switch (effectType) {
+			case DELAY:
 				switchDelay();
 				System.out.println("delay");
 				break;
-			case 1:
+			case BITCRUSH:
 				switchBitCrush();
 				System.out.println("bitcrush");
 				break;
-			case 2:
+			case MOOG:
 				switchMoog();
 				System.out.println("moog");
 				break;
-			case 3:
+			case LOWPASS:
 				switchLowpass();
 				System.out.println("lowpass");
 				break;
-			case 4:
+			case HIGHPASS:
 				switchHighpass();
 				System.out.println("highpass");
 				break;

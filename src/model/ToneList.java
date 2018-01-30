@@ -1,10 +1,10 @@
 package model;
 
-import ddf.minim.ugens.Frequency;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import ddf.minim.ugens.Frequency;
 
 public class ToneList implements Iterable<Tone>{
 	

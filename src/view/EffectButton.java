@@ -1,17 +1,23 @@
 package view;
 
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import model.EffectType;
 
 public class EffectButton extends Button {
 
-    private int effectNumber;
+    private EffectType effectType;
+    private ImageView imgView;
 
-    public EffectButton(int i) {
-        this.setText("FX");
-        this.effectNumber = i;
+    public EffectButton(EffectType effectType) {
+//      this.setGraphic();
+        this.effectType = effectType;
+        imgView = new ImageView();
+        
+        this.getChildren().add(imgView);
     }
 
-    public int getEffectNumber() {
-        return effectNumber;
+    public EffectType getEffectType() {
+        return effectType;
     }
 }

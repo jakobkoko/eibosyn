@@ -1,5 +1,6 @@
 package view;
 
+import java.util.ArrayList;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -8,10 +9,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import model.EffectType;
 import model.Player;
-import model.Tone;
-
-import java.util.ArrayList;
 
 public class ToneCol extends VBox {
 
@@ -75,10 +74,10 @@ public class ToneCol extends VBox {
                 activeEffects.add(source);
                 source.setId("activeEffect");
             }
-            int effectNumber = source.getEffectNumber();
-            this.player.getToneFromToneList(index).switchFilters(effectNumber);
+            this.player.getToneFromToneList(index).switchFilters(source.getEffectType());
         };
 
+        // Instantiate ToneButtons
         for (String tone : tones) {
             ToneButton toneButton = new ToneButton(tone);
             toneButton.setPrefWidth(99);
@@ -88,12 +87,19 @@ public class ToneCol extends VBox {
             toneButton.setOnMouseClicked(buttonListener);
         }
 
-        for(int i = 0; i<6; i+=1) {
-            EffectButton btn = new EffectButton(i);
-            btn.setId("effectButton"+i);
-            effectButtons.add(btn);
-            btn.setPrefWidth(33);
-            btn.setOnMouseClicked(effectButtonListener);
+        EffectButton lowPassButton = new EffectButton(EffectType.LOWPASS);
+        effectButtons.add(lowPassButton);
+        EffectButton highPassButton = new EffectButton(EffectType.HIGHPASS);
+        effectButtons.add(highPassButton);
+        EffectButton bitCrushButton = new EffectButton(EffectType.BITCRUSH);
+        effectButtons.add(bitCrushButton);
+        
+        // Instantiate EffectButtons
+        for(int i = 0; i < 3; i++) {
+        	EffectButton e = effectButtons.get(i);
+        	e.setId("effectButton" + e.getEffectType().toString());
+            e.setPrefWidth(33);
+            e.setOnMouseClicked(effectButtonListener);
         }
 
         ColumnConstraints col1 = new ColumnConstraints();
@@ -105,10 +111,10 @@ public class ToneCol extends VBox {
         for(EffectButton b: effectButtons) {
             effectSelector.add(b, colIndex, rowIndex);
             colIndex++;
-            if(colIndex == 3) {
-                rowIndex++;
-                colIndex = 0;
-            }
+//            if(colIndex == 3) {
+//                rowIndex++;
+//                colIndex = 0;
+//            }
         }
         effectSelector.setAlignment(Pos.CENTER);
 

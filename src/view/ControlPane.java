@@ -3,15 +3,9 @@ package view;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
-import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import model.Player;
 
 public class ControlPane extends HBox {
@@ -25,7 +19,7 @@ public class ControlPane extends HBox {
     private Player player;
 
     public ControlPane(Player player) {
-        playButton = new Button("Play");
+        playButton = new ImageButton();
         playButton.setId("playbutton");
         volume = new SliderBox("volume", player,100,0);
         volume.setId("volumeslider");

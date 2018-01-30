@@ -1,14 +1,156 @@
-.button {
-    -fx-border-radius: 0;
+#sequencePane {
+    -fx-pref-height: 200px;
+    -fx-background-color: #333333;
+    -fx-padding: 50px 0 0 0;
+    -fx-spacing: 0;
+    -fx-border-width: 1px;
+    /*-fx-border-color: yellow;*/
+}
+#sequencePane #toneNamesBox {
+    -fx-spacing: 0px;
+    -fx-padding: 0px;
+    -fx-border-width: 1px;
+    /*-fx-border-color: yellow;*/
+    -fx-fit-to-height: true;
+}
+#sequencePane #toneNamesBox .label {
+    -fx-alignment: top-center;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 0px;
+    -fx-spacing: 0px;
+    -fx-border-width: 1px;
+    /*-fx-border-color: yellow;*/
+    -fx-pref-height: 33px;
+}
+#sequencePane .button {
+    -fx-border-width: 0.1px;
+    -fx-text-fill: #ffffff;
+    -fx-border-radius: 0px;
+    -fx-border-style: solid;
+    -fx-background-radius: 0px;
+}
+#sequencePane #col0 .button {
+    -fx-background-color: #0D0D0D;
+    -fx-border-color: #000000;
+}
+#sequencePane #col1 .button {
+    -fx-background-color: #1a1a1a;
+    -fx-border-color: #000000;
+}
+#sequencePane #col2 .button {
+    -fx-background-color: #262626;
+    -fx-border-color: #000000;
+}
+#sequencePane #col3 .button {
+    -fx-background-color: #333333;
+    -fx-border-color: #000000;
+}
+#sequencePane #col4 .button {
+    -fx-background-color: #404040;
+    -fx-border-color: #000000;
+}
+#sequencePane #col5 .button {
+    -fx-background-color: #4D4D4D;
+    -fx-border-color: #000000;
+}
+#sequencePane #col6 .button {
+    -fx-background-color: #595959;
+    -fx-border-color: #000000;
+}
+#sequencePane #col7 .button {
+    -fx-background-color: #666666;
+    -fx-border-color: #000000;
 }
 
-/* active tone buttons */
-#active {
-    -fx-background-color: red;
-    -fx-border-radius: 0;
+/* effectButton images */
+#effectButtonLowPass{
+	-fx-image: url("../resources/LowPass.png");
+}
+#sequencePane #col3 #effectButtonHighPass .imageView {
+	-fx-image: url("../resources/HighPass.png");
+}
+#sequencePane #col3 #effectButtonBitCrush .imageView {
+	-fx-image: url("../resources/BitCrushPass.png");
 }
 
 /* active effect buttons */
-#activeEffect {
-    -fx-background-color: darksalmon;
+#sequencePane #col0 #activeEffect,
+#sequencePane #col1 #activeEffect,
+#sequencePane #col2 #activeEffect,
+#sequencePane #col3 #activeEffect,
+#sequencePane #col4 #activeEffect,
+#sequencePane #col5 #activeEffect,
+#sequencePane #col6 #activeEffect,
+#sequencePane #col7 #activeEffect{
+    -fx-background-color: #0099cc;
+}
+#sequencePane #col0 #active,
+#sequencePane #col1 #active,
+#sequencePane #col2 #active,
+#sequencePane #col3 #active,
+#sequencePane #col4 #active,
+#sequencePane #col5 #active,
+#sequencePane #col6 #active,
+#sequencePane #col7 #active{
+    -fx-background-color: #0099cc;
+}
+/* active tone buttons */
+#activeCol #active {
+    -fx-background-color: #317589;
+    -fx-border-color: #22A7F0;
+    -fx-border-width: 0.2px;
+    -fx-text-fill: #ffffff;
+}
+#activeCol .button {
+    -fx-background-color: #19B5FE;
+    -fx-border-color: #22A7F0;
+    -fx-border-width: 0.2px;
+    -fx-text-fill: #22A7F0;
+}
+
+#controlPane {
+    -fx-spacing: 5px;
+    -fx-background-color: #1a1a1a;
+    -fx-border-width: 1px 0 0 0;
+    -fx-border-color: #000000;
+    -fx-padding: 10px 0 10px 0;
+    -fx-alignment: top-center;
+}
+#playbutton {
+    -fx-background-color: #1a1a1a;
+    -fx-padding: 10px;
+    -fx-border-width: 1px;
+    -fx-border-color: #000000;
+    -fx-border-insets: 5px;
+    -fx-pref-height: 180px;
+    -fx-pref-width: 180px;
+    -fx-alignment: baseline-center;
+}
+#playbutton #imgView {
+	-fx-image: url("../resources/play_icon.png");
+}
+#volumeslider, #echoslider, #bpmslider, #beattypeslider, #balanceslider {
+    -fx-background-color: #1a1a1a;
+    -fx-padding: 10px;
+    -fx-border-width: 1px;
+    -fx-border-color: #000000;
+    -fx-border-insets: 5px;
+    -fx-pref-height: 180px;
+    -fx-alignment: top-center;
+}
+#volumeslider #slider, #echoslider #slider, #bpmslider #slider, #beattypeslider #slider, #balanceslider #slider {
+    -fx-alignment: center;
+    -fx-text-fill: #ffffff;
+    -fx-control-inner-background:#0099cc;
+    -fx-padding: 0px 0px 10px 0px;
+}
+#volumeslider #label, #echoslider #label, #bpmslider #label, #beattypeslider #label, #balanceslider #label {
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #333333;
+    -fx-padding: 5px;
+    -fx-fill-width: true;
+}
+
+#balanceslider #imageView {
+	-fx-image: url("../resources/speaker_left.png");
 }

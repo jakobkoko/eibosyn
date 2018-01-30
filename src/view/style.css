@@ -61,6 +61,18 @@
     -fx-background-color: #666666;
     -fx-border-color: #000000;
 }
+
+/* effectButton images */
+#effectButtonLowPass{
+	-fx-image: url("../resources/LowPass.png");
+}
+#sequencePane #col3 #effectButtonHighPass .imageView {
+	-fx-image: url("../resources/HighPass.png");
+}
+#sequencePane #col3 #effectButtonBitCrush .imageView {
+	-fx-image: url("../resources/BitCrushPass.png");
+}
+
 /* active effect buttons */
 #sequencePane #col0 #activeEffect,
 #sequencePane #col1 #activeEffect,
@@ -114,6 +126,9 @@
     -fx-pref-width: 180px;
     -fx-alignment: baseline-center;
 }
+#playbutton #imgView {
+	-fx-image: url("../resources/play_icon.png");
+}
 #volumeslider, #echoslider, #bpmslider, #beattypeslider, #balanceslider {
     -fx-background-color: #1a1a1a;
     -fx-padding: 10px;
@@ -134,4 +149,8 @@
     -fx-background-color: #333333;
     -fx-padding: 5px;
     -fx-fill-width: true;
+}
+
+#balanceslider #imageView {
+	-fx-image: url("../resources/speaker_left.png");
 }

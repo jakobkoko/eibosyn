@@ -2,13 +2,9 @@ package view;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import model.Player;
 
@@ -31,8 +27,8 @@ public class View extends Application {
             String css = this.getClass().getResource("style.css").toExternalForm();
             scene.getStylesheets().add(css);
             primaryStage.setTitle("Hello World");
-            primaryStage.setWidth(900);
-            primaryStage.setHeight(680);
+            primaryStage.setMinWidth(850);
+            primaryStage.setMinHeight(700);
             primaryStage.setFullScreen(false);
             primaryStage.setScene(scene);
             primaryStage.show();

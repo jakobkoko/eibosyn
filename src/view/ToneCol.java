@@ -17,7 +17,7 @@ public class ToneCol extends VBox {
 
     private ArrayList<ToneButton> toneButtons;
     private ArrayList<EffectButton> effectButtons;
-    private final String[] tones = {"C5", "C#5", "D5", "D#5", "E5", "F5", "F#5", "G5", "G#5", "A5", "B5", "H5"};
+    private final String[] tones = {"B5", "A#5", "A5", "G#5", "G5", "F#5", "F5", "E5", "D#5", "D5", "C#5", "C5"};
     private ToneButton activeTone;
     private VBox toneSelector;
     private GridPane effectSelector;

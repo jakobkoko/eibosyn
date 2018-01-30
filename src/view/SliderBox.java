@@ -38,7 +38,7 @@ public class SliderBox extends VBox {
                     if (n == 1) return "R";
                 } else if(label.getText().equalsIgnoreCase("beattype")) {
                     slider.setSnapToTicks(true);
-                    slider.setMajorTickUnit(1);
+                    slider.setMajorTickUnit(5);
                     if (n == 0) return "1/1";
                     if (n == 1) return "1/2";
                     if (n == 2) return "1/4";

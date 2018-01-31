@@ -7,17 +7,20 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.Player;
+import model.Recorder;
 
 public class View extends Application {
     Player player;
+    Recorder recorder;
     @Override
     public void start(Stage primaryStage) throws Exception{
 
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+            //Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
             player = new Player();
+            recorder = new Recorder(player.getOut(), player.getMinim());
             BorderPane borderPane = new BorderPane();
-            CenterContainer center = new CenterContainer(player);
+            CenterContainer center = new CenterContainer(player, recorder);
             TopContainer top = new TopContainer();
 
             borderPane.setTop(top);

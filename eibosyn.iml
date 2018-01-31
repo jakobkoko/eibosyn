@@ -9,5 +9,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="jl1.0 (3)" level="application" />
     <orderEntry type="library" name="eibo_simpleminim" level="application" />
+    <orderEntry type="library" name="jsminim (2)" level="project" />
+    <orderEntry type="library" name="jl1.0 (3)" level="project" />
   </component>
 </module>

@@ -7,10 +7,12 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import model.Player;
+import model.Recorder;
 
 public class ControlPane extends HBox {
 
     private Button playButton;
+    private Button recordButton;
     private SliderBox volume;
     private SliderBox balance;
     private SliderBox echo;
@@ -18,9 +20,11 @@ public class ControlPane extends HBox {
     private SliderBox beattype;
     private Player player;
 
-    public ControlPane(Player player) {
+    public ControlPane(Player player, Recorder recorder) {
         playButton = new ImageButton();
         playButton.setId("playbutton");
+        recordButton = new Button("record");
+        recordButton.setId("recordbutton");
         volume = new SliderBox("volume", player,100,0);
         volume.setId("volumeslider");
         balance = new SliderBox("balance", player, 1, -1);
@@ -63,6 +67,13 @@ public class ControlPane extends HBox {
             }
         });
 
-        this.getChildren().addAll(playButton, volume, balance, echo, bpm, beattype);
+        recordButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                recorder.toggleRecord();
+            }
+        });
+
+        this.getChildren().addAll(recordButton, playButton, volume, balance, echo, bpm, beattype);
     }
 }

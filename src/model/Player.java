@@ -122,4 +122,12 @@ public class Player {
 				break;
 		}
 	}
+
+	public SimpleMinim getMinim() {
+		return minim;
+	}
+
+	public AudioOutput getOut() {
+		return out;
+	}
 }

@@ -17,6 +17,7 @@ public class SliderBox extends VBox {
     private Player player;
     private int max;
     private int min;
+    private float cur;
 
     public SliderBox(String text, Player player, int max, int min) {
         this.max = max;
@@ -73,6 +74,14 @@ public class SliderBox extends VBox {
         this.setAlignment(Pos.CENTER);
         this.getChildren().addAll(slider, label, imgView);
     }
+
+    public SliderBox(String text, Player player, int max, int min, float cur) {
+        this(text, player, max, min);
+        this.cur = cur;
+        slider.setValue(cur);
+    }
+
+
 
     public Slider getSlider() {
         return slider;

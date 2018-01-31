@@ -25,7 +25,7 @@ public class ControlPane extends HBox {
         playButton.setId("playbutton");
         recordButton = new Button("record");
         recordButton.setId("recordbutton");
-        volume = new SliderBox("volume", player,100,0);
+        volume = new SliderBox("volume", player,14,-80, player.getOut().getGain());
         volume.setId("volumeslider");
         balance = new SliderBox("balance", player, 1, -1);
         balance.setId("balanceslider");
@@ -57,6 +57,13 @@ public class ControlPane extends HBox {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 player.setBeattype(newValue.intValue());
+            }
+        });
+
+        volume.getSlider().valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                player.getOut().setGain(newValue.floatValue());
             }
         });
 

@@ -35,7 +35,6 @@ public class SliderBox extends VBox {
             @Override
             public String toString(Double n) {
                 if(label.getText().equalsIgnoreCase("balance")) {
-                    slider.setValue(max*0.5);
                     if (n == -1) return "L";
                     if (n == 1) return "R";
                 } else if(label.getText().equalsIgnoreCase("beattype")) {

@@ -13,7 +13,6 @@ public class SliderBox extends VBox {
 
     private Slider slider;
     private Label label;
-    private ImageView imgView;
     private Player player;
     private int max;
     private int min;
@@ -26,10 +25,6 @@ public class SliderBox extends VBox {
         slider.setId("slider");
         label = new Label(text);
         label.setId("label");
-        imgView = new ImageView();
-        imgView.setFitWidth(12);
-        imgView.setFitHeight(15);
-        imgView.setId("imageView");
         
         slider.setMax(max);
         slider.setMin(min);
@@ -40,6 +35,7 @@ public class SliderBox extends VBox {
             @Override
             public String toString(Double n) {
                 if(label.getText().equalsIgnoreCase("balance")) {
+                    slider.setValue(max*0.5);
                     if (n == -1) return "L";
                     if (n == 1) return "R";
                 } else if(label.getText().equalsIgnoreCase("beattype")) {
@@ -72,7 +68,7 @@ public class SliderBox extends VBox {
 
         slider.setOrientation(Orientation.VERTICAL);
         this.setAlignment(Pos.CENTER);
-        this.getChildren().addAll(slider, label, imgView);
+        this.getChildren().addAll(slider, label);
     }
 
     public SliderBox(String text, Player player, int max, int min, float cur) {

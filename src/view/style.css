@@ -62,6 +62,13 @@
     -fx-border-color: #000000;
 }
 
+#recordbutton {
+    -fx-background-color: red;
+    -fx-width: 40px;
+    -fx-height: 40px;
+    -fx-border-radius: 20px;
+}
+
 /* effectButton images */
 #effectButtonLowPass{
 	-fx-image: url("../resources/LowPass.png");

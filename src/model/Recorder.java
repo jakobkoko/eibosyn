@@ -1,5 +1,6 @@
 package model;
 
+import Helper.Utility;
 import ddf.minim.AudioOutput;
 import ddf.minim.AudioRecorder;
 import ddf.minim.Recordable;
@@ -42,9 +43,11 @@ public class Recorder {
         if (!recording) {
             recorder = minim.createRecorder(output, "record_" + timestamp + ".wav");
             recorder.beginRecord();
+            Utility.debug("begin recording");
             recording = true;
         } else if (recording) {
             endRecord();
+            Utility.debug("end recording");
             recorder.save();
             recording = false;
         }

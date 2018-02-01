@@ -2,8 +2,7 @@ package view;
 
 import javafx.geometry.Pos;
 import javafx.scene.layout.VBox;
-import model.Player;
-import model.Recorder;
+import model.*;
 
 public class CenterContainer extends VBox {
 

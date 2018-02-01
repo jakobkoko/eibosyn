@@ -96,6 +96,10 @@ public class Player {
 		System.exit(1);
 	}
 
+	public ToneList getToneList() {
+		return this.toneList;
+	}
+	
     public Tone getToneFromToneList(int index) {
 		return toneList.getList().get(index);
     }

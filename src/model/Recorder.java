@@ -1,14 +1,12 @@
 package model;
 
-import ddf.minim.AudioOutput;
+import java.io.File;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import ddf.minim.AudioRecorder;
 import ddf.minim.Recordable;
 import de.hsrm.mi.eibo.simpleplayer.SimpleMinim;
 import javafx.stage.FileChooser;
-
-import java.io.File;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 
 public class Recorder {
 

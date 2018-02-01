@@ -1,8 +1,10 @@
 package view;
 
+import com.sun.javafx.font.freetype.HBGlyphLayout;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -23,7 +25,7 @@ public class ControlPane extends HBox {
     public ControlPane(Player player, Recorder recorder) {
         playButton = new ImageButton();
         playButton.setId("playbutton");
-        recordButton = new Button("record");
+        recordButton = new Button();
         recordButton.setId("recordbutton");
         volume = new SliderBox("volume", player,14,-80, player.getOut().getGain());
         volume.setId("volumeslider");
@@ -77,6 +79,11 @@ public class ControlPane extends HBox {
         recordButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                if(recordButton.getId().equals("activerecordbutton")) {
+                    recordButton.setId("recordbutton");
+                } else {
+                    recordButton.setId("activerecordbutton");
+                }
                 recorder.toggleRecord();
             }
         });

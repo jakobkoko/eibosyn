@@ -81,26 +81,14 @@
     -fx-width: 60px;
     -fx-height: 60px;
     -fx-border-radius: 100%;
-    -fx-border-color: #ff4336;
+    -fx-border-color: #ff7e74;
     -fx-border-style: solid;
     -fx-border-width: 2px;
+    -fx-cursor: hand;
 }
 
 #recordbutton:hover {
-    -fx-background-color: #b70000;
-}
-
-#activerecordbutton {
-    -fx-background-color: #b70000;
-    -fx-background-radius: 100%;
-    -fx-pref-height: 60px;
-    -fx-pref-width: 60px;
-    -fx-width: 60px;
-    -fx-height: 60px;
-    -fx-border-radius: 100%;
-    -fx-border-color: #ff4336;
-    -fx-border-style: solid;
-    -fx-border-width: 2px;
+    -fx-background-color: #a40006;
 }
 
 /* effectButton images */

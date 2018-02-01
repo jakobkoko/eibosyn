@@ -1,17 +1,18 @@
 package view;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import model.Player;
-import model.Recorder;
+import Helper.Utility;
+import model.*;
 
 public class View extends Application {
+
     Player player;
     Recorder recorder;
+
+
     @Override
     public void start(Stage primaryStage) throws Exception{
 
@@ -26,6 +27,8 @@ public class View extends Application {
             borderPane.setTop(top);
             borderPane.setCenter(center);
             Scene scene = new Scene(borderPane);
+
+            Utility.debugOn();
 
             String css = this.getClass().getResource("style.css").toExternalForm();
             scene.getStylesheets().add(css);

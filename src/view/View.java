@@ -4,6 +4,9 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.FileIO;
+import model.Player;
+import model.Recorder;
 import Helper.Utility;
 import model.*;
 
@@ -11,6 +14,7 @@ public class View extends Application {
 
     Player player;
     Recorder recorder;
+    FileIO fileIO;
 
 
     @Override
@@ -20,9 +24,10 @@ public class View extends Application {
             //Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
             player = new Player();
             recorder = new Recorder(player.getOut(), player.getMinim());
+            FileIO fileIO = new FileIO();
             BorderPane borderPane = new BorderPane();
             CenterContainer center = new CenterContainer(player, recorder);
-            TopContainer top = new TopContainer();
+            TopContainer top = new TopContainer(player, fileIO);
 
             borderPane.setTop(top);
             borderPane.setCenter(center);

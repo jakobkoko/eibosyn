@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="eibo_simpleminim">
+    <archive path="C:/Users/Jakob/IdeaProjects/eibosyn/eibo_simpleminim.jar" />
+    <archive path="C:/Users/Jakob/IdeaProjects/eibosyn/eibo_staticscanner.jar" />
+    <archive path="C:/Users/Jakob/IdeaProjects/eibosyn/mp3agic.jar" />
+  </library>
+  <library name="jl1.0">
+    <archive path="C:/Users/Jakob/IdeaProjects/Synth/jl1.0.jar" />
+    <archive path="C:/Users/Jakob/IdeaProjects/Synth/jsminim.jar" />
+    <archive path="C:/Users/Jakob/IdeaProjects/Synth/minim.jar" />
+    <archive path="C:/Users/Jakob/IdeaProjects/Synth/mp3spi1.9.4.jar" />
+    <archive path="C:/Users/Jakob/IdeaProjects/Synth/tritonus_aos.jar" />
+    <archive path="C:/Users/Jakob/IdeaProjects/Synth/tritonus_share.jar" />
+  </library>
+  <library name="jl1.0 (2)">
+    <archive path="C:/Users/Jakob/IdeaProjects/ProjectX/jl1.0.jar" />
+    <archive path="C:/Users/Jakob/IdeaProjects/ProjectX/jsminim.jar" />
+    <archive path="C:/Users/Jakob/IdeaProjects/ProjectX/minim.jar" />
+    <archive path="C:/Users/Jakob/IdeaProjects/ProjectX/mp3spi1.9.4.jar" />
+    <archive path="C:/Users/Jakob/IdeaProjects/ProjectX/tritonus_aos.jar" />
+    <archive path="C:/Users/Jakob/IdeaProjects/ProjectX/tritonus_share.jar" />
+  </library>
+  <library name="jl1.0 (3)">
+    <archive path="C:/Users/Jakob/IdeaProjects/eibosyn/jl1.0.jar" />
+    <archive path="C:/Users/Jakob/IdeaProjects/eibosyn/jsminim.jar" />
+    <archive path="C:/Users/Jakob/IdeaProjects/eibosyn/minim.jar" />
+    <archive path="C:/Users/Jakob/IdeaProjects/eibosyn/mp3spi1.9.4.jar" />
+    <archive path="C:/Users/Jakob/IdeaProjects/eibosyn/tritonus_aos.jar" />
+    <archive path="C:/Users/Jakob/IdeaProjects/eibosyn/tritonus_share.jar" />
+  </library>
+</eclipse-userlibraries>
+

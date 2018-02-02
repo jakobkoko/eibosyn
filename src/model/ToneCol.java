@@ -1,28 +1,34 @@
-package view;
+package model;
 
 import java.util.ArrayList;
+
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import model.EffectType;
-import model.Player;
+import view.ToneButton;
+import view.EffectButton;
+import view.ToneButton;
 
 public class ToneCol extends VBox {
 
     private ArrayList<ToneButton> toneButtons;
     private ArrayList<EffectButton> effectButtons;
     private final String[] tones = {"B5", "A#5", "A5", "G#5", "G5", "F#5", "F5", "E5", "D#5", "D5", "C#5", "C5"};
+    private SimpleObjectProperty<Tone> activeTone_;
     private ToneButton activeTone;
     private VBox toneSelector;
     private GridPane effectSelector;
     private ArrayList<EffectButton> activeEffects;
     private String curTone;
     private Player player;
+    /* Index der ToneCol im SequencePane */
     private int index;
     private boolean active;
 
@@ -40,8 +46,7 @@ public class ToneCol extends VBox {
         EventHandler<MouseEvent> buttonListener = (EventHandler<MouseEvent>) event -> {
             activeTone.setId("inactive");
             if(event.getSource() != activeTone) {
-                activeTone = (ToneButton) event.getSource();
-                activeTone.setId("active");
+                selectButton((ToneButton) event.getSource());
                 this.player.getToneFromToneList(index).unmute();
                 this.player.setToneList(this.index, activeTone.getTone());
             } else {
@@ -50,20 +55,28 @@ public class ToneCol extends VBox {
             }
         };
 
+        this.player.getToneList().getTones().addListener(new ListChangeListener<Tone>() {
+            @Override
+            public void onChanged(Change<? extends Tone> c) {
+
+            }
+        });
+
         player.getLooper().getCurToneIndex().addListener(new ChangeListener<Number>() {
             public String oldId = "col0";
 
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                if(newValue.intValue() == index) {
+                int value = newValue.intValue();
+            	if(value == index) {
                     this.oldId = ToneCol.this.getId();
+                  
                     ToneCol.this.setId("activeCol");
                 } else if(oldValue.intValue() == index) {
                     ToneCol.this.setId(oldId);
                 }
             }
         });
-
 
         EventHandler<MouseEvent> effectButtonListener = (EventHandler<MouseEvent>) event -> {
             EffectButton source = (EffectButton) event.getSource();
@@ -97,6 +110,7 @@ public class ToneCol extends VBox {
         // Instantiate EffectButtons
         for(int i = 0; i < 3; i++) {
         	EffectButton e = effectButtons.get(i);
+        	e.getStyleClass().add("effectButton" + e.getEffectType().toString());
         	e.setId("effectButton" + e.getEffectType().toString());
             e.setPrefWidth(33);
             e.setOnMouseClicked(effectButtonListener);
@@ -120,9 +134,15 @@ public class ToneCol extends VBox {
 
         this.getChildren().addAll(toneSelector, effectSelector);
 
-
-
-
+    }
+    
+    public void selectButton(ToneButton button) {
+    	activeTone = button;
+        activeTone.setId("active");
+    }
+    
+    public ArrayList<ToneButton> getToneButtons() {
+    	return toneButtons;
     }
 
 }

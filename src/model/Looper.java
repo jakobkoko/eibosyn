@@ -1,5 +1,6 @@
 package model;
 
+import Helper.Utility;
 import ddf.minim.AudioOutput;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -21,6 +22,7 @@ public class Looper extends Thread {
             while (playing) {
                 float beattypedur = beattype.getValue();
                 out.playNote(i, beattypedur, toneList.getList().get(var));
+                Utility.debug("play: " + String.valueOf(toneList.getList().get(var).getFrequency().asHz()));
                 long now = System.currentTimeMillis();
                 long goal = now + (long) (((float) 60 / bpm) * 4 * 1000);
                 while (now < goal) {

@@ -46,11 +46,11 @@ public class FileIO {
 			bw.newLine();
 
 			for (int i = 0; i < 8; i++) {
-				float freq = player.getToneList().getList().get(i).getFrequency().asHz();
+				Frequency freq = player.getToneList().getList().get(i).getFrequency();
 				System.out.println(freq + "\n");
 				bw.write("#" + i);
 				bw.newLine();
-				bw.write("freq " + Float.toString(freq));
+				bw.write("freq " + freq.asHz());
 				bw.newLine();
 			}
 		} catch (IOException e) {
@@ -108,19 +108,18 @@ public class FileIO {
 			if (line.startsWith("#"))
 				return toneNumber;
 			else if (line.startsWith("freq")) {
-				ToneCol cur = center.getSequencePane().getList().get(toneNumber);
-				// Setting the frequency of the Tone at index toneNumber
+				ToneCol currentToneCol = center.getSequencePane().getList().get(toneNumber);
 				Tone t = player.getToneList().getList().get(toneNumber);
-				float f = Float.parseFloat((line.substring(5, 12)));
-				t.setFrequency(f);
+				
+				// Setting the frequency of the Tone at index toneNumber
+				float f = Float.parseFloat(line.substring(5, 12));
+				t.setFrequency(Frequency.ofHertz(f));
 				t.unmute();
-				for(ToneButton b: cur.getToneButtons()) {
-					if(b.getTone().equals(HzToString(f))) {
-						cur.selectButton(b);
-					}
+				Frequency freq = Frequency.ofHertz(f);
+				for(ToneButton b : currentToneCol.getToneButtons()) {
+					if(Frequency.ofPitch(b.getTone()).equals(freq))
+						currentToneCol.selectButton(b);
 				}
-				
-				
 				return ++toneNumber;
 			}
 			else if (line.startsWith("fx")) {
@@ -132,14 +131,5 @@ public class FileIO {
 			}
 		}
 		return 0;
-	}
-	
-	private String HzToString(float f) {
-		String freq = "";
-		
-		Frequency f;
-		
-		
-		return freq;
 	}
 }

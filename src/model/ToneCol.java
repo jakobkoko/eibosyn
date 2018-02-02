@@ -41,8 +41,7 @@ public class ToneCol extends VBox {
         EventHandler<MouseEvent> buttonListener = (EventHandler<MouseEvent>) event -> {
             activeTone.setId("inactive");
             if(event.getSource() != activeTone) {
-                activeTone = (ToneButton) event.getSource();
-                activeTone.setId("active");
+                selectButton((ToneButton) event.getSource());
                 this.player.getToneFromToneList(index).unmute();
                 this.player.setToneList(this.index, activeTone.getTone());
             } else {
@@ -56,15 +55,16 @@ public class ToneCol extends VBox {
 
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                if(newValue.intValue() == index) {
+                int value = newValue.intValue();
+            	if(value == index) {
                     this.oldId = ToneCol.this.getId();
+                  
                     ToneCol.this.setId("activeCol");
                 } else if(oldValue.intValue() == index) {
                     ToneCol.this.setId(oldId);
                 }
             }
         });
-
 
         EventHandler<MouseEvent> effectButtonListener = (EventHandler<MouseEvent>) event -> {
             EffectButton source = (EffectButton) event.getSource();
@@ -121,9 +121,15 @@ public class ToneCol extends VBox {
 
         this.getChildren().addAll(toneSelector, effectSelector);
 
-
-
-
+    }
+    
+    public void selectButton(ToneButton button) {
+    	activeTone = button;
+        activeTone.setId("active");
+    }
+    
+    public ArrayList<ToneButton> getToneButtons() {
+    	return toneButtons;
     }
 
 }

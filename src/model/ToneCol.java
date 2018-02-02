@@ -1,4 +1,4 @@
-package view;
+package model;
 
 import java.util.ArrayList;
 import javafx.beans.value.ChangeListener;
@@ -9,8 +9,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import model.EffectType;
-import model.Player;
+import view.ToneButton;
+import view.EffectButton;
+import view.ToneButton;
 
 public class ToneCol extends VBox {
 

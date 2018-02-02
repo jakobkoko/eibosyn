@@ -1,15 +1,23 @@
 package view;
 
-import com.sun.javafx.font.freetype.HBGlyphLayout;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import model.Player;
-import model.Recorder;
+import javafx.scene.paint.Color;
+import javafx.util.Duration;
+import model.*;
+
 
 public class ControlPane extends HBox {
 
@@ -20,13 +28,14 @@ public class ControlPane extends HBox {
     private SliderBox echo;
     private SliderBox bpm;
     private SliderBox beattype;
+    private Recorder recorder;
     private Player player;
+    final ObjectProperty<Color> recordButtonColor = new SimpleObjectProperty<>(Color.RED);
+    final StringProperty colorStringProperty = createRecordButtonColorStringProperty(recordButtonColor);
 
     public ControlPane(Player player, Recorder recorder) {
         playButton = new ImageButton();
         playButton.setId("playbutton");
-        recordButton = new Button();
-        recordButton.setId("recordbutton");
         volume = new SliderBox("volume", player,14,-80, player.getOut().getGain());
         volume.setId("volumeslider");
         balance = new SliderBox("balance", player, 1, -1);
@@ -38,6 +47,7 @@ public class ControlPane extends HBox {
         beattype = new SliderBox("beattype", player, 5, 0);
         beattype.setId("beattypeslider");
         this.player = player;
+        this.recorder = recorder;
 
         this.setSpacing(30);
 
@@ -76,18 +86,68 @@ public class ControlPane extends HBox {
             }
         });
 
-        recordButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        this.getChildren().addAll(createRecordButton(recordButtonColor, colorStringProperty), playButton, volume, balance, echo, bpm, beattype);
+    }
+
+    private StringProperty createRecordButtonColorStringProperty(final ObjectProperty<Color> recordButtonColor) {
+        final StringProperty colorStringProperty = new SimpleStringProperty();
+        setColorStringFromColor(colorStringProperty, recordButtonColor);
+        recordButtonColor.addListener(new ChangeListener<Color>() {
+            @Override
+            public void changed(ObservableValue<? extends Color> observableValue, Color oldColor, Color newColor) {
+                setColorStringFromColor(colorStringProperty, recordButtonColor);
+            }
+
+
+        });
+
+        return colorStringProperty;
+    }
+
+    private Button createRecordButton(ObjectProperty<Color> recordButtonColor, StringProperty colorStringProperty) {
+
+
+        Button recordbutton = new Button();
+        recordbutton.setId("recordbutton");
+        Timeline flash = new Timeline();
+        KeyValue kv1 = new KeyValue(recordButtonColor, Color.valueOf("ff7e74"));
+        KeyValue kv2 = new KeyValue(recordButtonColor, Color.RED);
+        KeyFrame kf1 = new KeyFrame(Duration.millis(300), kv1);
+        KeyFrame kf2 = new KeyFrame(Duration.millis(300), kv2);
+        flash.getKeyFrames().addAll(kf1, kf2);
+
+        recordbutton.styleProperty().bind(
+                new SimpleStringProperty("-fx-background-color:")
+                    .concat(colorStringProperty).concat(";")
+        );
+
+        recordbutton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if(recordButton.getId().equals("activerecordbutton")) {
-                    recordButton.setId("recordbutton");
+                if(flash.getStatus().equals(Animation.Status.RUNNING)) {
+                    flash.stop();
                 } else {
-                    recordButton.setId("activerecordbutton");
+                    flash.setCycleCount(Timeline.INDEFINITE);
+                    flash.setAutoReverse(true);
+                    flash.play();
                 }
                 recorder.toggleRecord();
             }
         });
 
-        this.getChildren().addAll(recordButton, playButton, volume, balance, echo, bpm, beattype);
+        return recordbutton;
+    }
+
+    private void setColorStringFromColor(StringProperty colorStringProperty, ObjectProperty<Color> color) {
+
+        colorStringProperty.set(
+                "rgba("
+                        + ((int) (color.get().getRed() * 255)) + ","
+                        + ((int) (color.get().getGreen() * 255)) + ","
+                        + ((int) (color.get().getBlue() * 255)) + ","
+                        + color.get().getOpacity() +
+                ")"
+        );
+
     }
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import model.Player;
+import model.*;
 
 public class SequencePane extends HBox {
 

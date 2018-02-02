@@ -120,7 +120,8 @@ public class FileIO {
 				ToneCol currentToneCol = toneSequence.get(toneNumber);
 				Tone t = player.getToneList().getList().get(toneNumber);
 				float f;
-				// Setting the frequency of the Tone at index toneNumber
+				
+				// Parsing hz-expression
 				switch (line.length()) {
 				case 10: f = Float.parseFloat(line.substring(5, 10));
 				break;
@@ -136,14 +137,14 @@ public class FileIO {
 				System.out.println(line.length());
 				return ++toneNumber;
 				}
+				
+				// Setting the frequency of the Tone at index toneNumber
 				Frequency freq = Frequency.ofHertz(f);
 				t.setFrequency(freq);
 				t.unmute();
 				
 				for (ToneButton b : currentToneCol.getToneButtons()) {
 					Frequency currentFrequency = Frequency.ofPitch(b.getTone());
-					
-					// Hier buttonFreq auf vier Nachkommastellen kürzen!!!!!!!!
 					float buttonFreq = currentFrequency.asHz();
 					if(freq.asHz() == buttonFreq)
 						currentToneCol.selectButton(b);

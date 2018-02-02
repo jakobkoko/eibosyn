@@ -15,7 +15,11 @@ import ddf.minim.ugens.Instrument;
 import ddf.minim.ugens.MoogFilter;
 import ddf.minim.ugens.Oscil;
 import ddf.minim.ugens.Waves;
-
+/**
+ * Represents a Tone
+ * @author Nick Hafkemeyer, Jakob Kohlhas, Paul Schade
+ * 
+ */
 public class Tone implements Instrument {
 
 	private List<UGen> filters;
@@ -36,6 +40,12 @@ public class Tone implements Instrument {
 	private UGen patchChain;
 	private boolean filtered;
 
+	/**
+	 * Creates an instance of a Tone
+	 * @param frequency
+	 * @param amp
+	 * @param out
+	 */
 	public Tone(Frequency frequency, float amp, AudioOutput out) {
 		this.freq = frequency;
 		this.amp = amp;
@@ -51,8 +61,10 @@ public class Tone implements Instrument {
 		osc.patch(adsr);
 	}
 
+	/**
+	 * Repatching this Tone after effects were activated
+	 */
 	public void updateFilters() {
-		// Everytime updateFilters is called we repatch the tone;
 		osc.unpatch(adsr);
 		if(filtered) patchChain.unpatch(adsr);
 		patchChain = osc;
@@ -64,6 +76,10 @@ public class Tone implements Instrument {
 		patchChain.patch(adsr);
 	}
 	
+	/**
+	 * Calls methods for patching effects on this Tone
+	 * @param effectType
+	 */
 	public void switchFilters(EffectType effectType) {
 		switch (effectType) {
 			case DELAY:
@@ -88,40 +104,72 @@ public class Tone implements Instrument {
 				break;
 		}
 	}
+	
+	/**
+	 * Switches Delay on and off
+	 */
 	public void switchDelay() {
 		if(!filterList.contains(delay)) filterList.add(delay);
 		else filterList.remove(delay);
 		updateFilters();
 	}
+	
+	/**
+	 * Switches LowPass on and off
+	 */
 	public void switchLowpass() {
 		if(!filterList.contains(lowpass)) filterList.add(lowpass);
 		else filterList.remove(lowpass);
 		updateFilters();
 	}
+	
+	/**
+	 * Switches HighPass on and off
+	 */
 	public void switchHighpass() {
 		if(!filterList.contains(highpass)) filterList.add(highpass);
 		else filterList.remove(highpass);
 		updateFilters();
 	}
+	
+	/**
+	 * Switches Moog on and off
+	 */
 	public void switchMoog() {
 		if(!filterList.contains(moog)) filterList.add(moog);
 		else filterList.remove(moog);
 		updateFilters();
 	}
+	
+	/**
+	 * Switches BitCrush on and off
+	 */
 	public void switchBitCrush() {
 		if(!filterList.contains(bitCrush)) filterList.add(bitCrush);
 		else filterList.remove(bitCrush);
 		updateFilters();
 	}
 
+	/**
+	 * Unpatches the specified filter from this Tone
+	 * @param filter
+	 */
 	public void removeFilter(UGen filter) {
 		filters.remove(filter);
 	}
 
+	/**
+	 * Gets the Frequency Object of this Tone
+	 * @return
+	 */
 	public Frequency getFrequency() {
 		return this.freq;
 	}
 
+	/**
+	 * Sets the frequency of the Frequency Object of this Tone to the given float value in Hz
+	 * @param hz
+	 */
 	public void setFrequency(float hz) {
 		this.osc.setFrequency(hz);
 		this.freq.setAsHz(hz);
@@ -130,11 +178,33 @@ public class Tone implements Instrument {
 			updateFilters();
 		}
 	}
+	
+	/**
+	 * Sets the frequency of the Frequency Object of this Tone to the given Frequency
+	 * @param frequency
+	 */
+	public void setFrequency(Frequency frequency) {
+		osc.setFrequency(frequency);
+		this.freq.setAsHz(frequency.asHz());
+		if(filterList.size() > 0) {
+			osc.unpatch(adsr);
+			updateFilters();
+		}
+	}
 
+	/**
+	 * Updates the float value amplitude
+	 * @param newAmp
+	 */
 	public void updateAmplitude(float newAmp) {
 		this.osc.setAmplitude(newAmp);
 	}
 
+	/**
+	 * Updates the parameters of the ADSR Object to the given bpm and BeatType
+	 * @param bpm
+	 * @param beatType
+	 */
 	public void updateADSR_ToTempo(float bpm, BeatType beatType) {
 		decTime = 60 / bpm; // = 1
 		switch(beatType) {
@@ -166,71 +236,113 @@ public class Tone implements Instrument {
 		adsr.unpatchAfterRelease(out);
 	}
 
-	public String toString() {
-		return freq.toString();
-	}
-
+	/**
+	 * Gets the list of effects for this Tone
+	 * @return
+	 */
 	public List<UGen> getFilters() {
 		return filters;
 	}
 
+	/**
+	 * Sets the list of effects for this Tone
+	 * @param filters
+	 */
 	public void setFilters(List<UGen> filters) {
 		this.filters = filters;
 	}
 
+	/**
+	 * Gets the Oscillator Object of this Tone
+	 * @return
+	 */
 	public Oscil getOsc() {
 		return osc;
 	}
 
+	/**
+	 * Sets the Oscillator Object of this Tone
+	 * @param osc
+	 */
 	public void setOsc(Oscil osc) {
 		this.osc = osc;
 	}
 
+	/**
+	 * Gets the ADSR Object of this Tone
+	 * @return
+	 */
 	public ADSR getAdsr() {
 		return adsr;
 	}
 
+	/**
+	 * Sets the ADSR Object of this Tone
+	 * @return
+	 */
 	public void setAdsr(ADSR adsr) {
 		this.adsr = adsr;
 	}
 
+	/**
+	 * Gets the DecayTime of this Tone
+	 * @return
+	 */
 	public float getDecTime() {
 		return decTime;
 	}
 
+	/**
+	 * Sets the DecayTime of this Tone
+	 * @param decTime
+	 */
 	public void setDecTime(float decTime) {
 		this.decTime = decTime;
 	}
 
+	/**
+	 * Gets the AudioOutput of this Tone
+	 * @return
+	 */
 	public AudioOutput getOut() {
 		return out;
 	}
 
+	
+	/**
+	 * Sets the AudioOutput of this Tone
+	 * @return
+	 */
 	public void setOut(AudioOutput out) {
 		this.out = out;
 	}
 
+	/**
+	 * Gets the AttackTime of this Tone
+	 * @return
+	 */
 	public float getAttTime() {
 		return attTime;
 	}
 
+	/**
+	 * Gets the ReleaseTime of this Tone
+	 * @return
+	 */
 	public float getRelTime() {
 		return relTime;
 	}
-
-	public void setFrequency(Frequency frequency) {
-		osc.setFrequency(frequency);
-		this.freq.setAsHz(frequency.asHz());
-		if(filterList.size() > 0) {
-			osc.unpatch(adsr);
-			updateFilters();
-		}
-	}
-
+	
+	/**
+	 * Unmutes this Tone
+	 */
 	public void unmute() {
 		updateAmplitude(1);
 	}
-
+	
+	/**
+	 * Mutes this Tone
+	 */
 	public void mute() {
 		updateAmplitude(0);
 	}

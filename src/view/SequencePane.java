@@ -1,13 +1,17 @@
 package view;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import model.*;
+import model.Player;
+import model.ToneCol;
 
+/**
+ * Represents a ControlPane
+ * @author Nick Hafkemeyer, Jakob Kohlhas, Paul Schade
+ * 
+ */
 public class SequencePane extends HBox {
 
     private ArrayList<ToneCol> toneSequence;
@@ -16,6 +20,12 @@ public class SequencePane extends HBox {
     private VBox toneNamesBox;
     private Player player;
 
+    /**
+     * Creates an instance of SequencePane
+     * @param octave
+     * @param toneRowNumber
+     * @param p
+     */
     public SequencePane(int octave, int toneRowNumber, Player p) {
         player = p;
         this.octave = octave;
@@ -48,6 +58,10 @@ public class SequencePane extends HBox {
 
     }
 
+    /**
+     * Gets toneSequence
+     * @return
+     */
 	public ArrayList<ToneCol> getToneSequence() {
 		return toneSequence;
 	}

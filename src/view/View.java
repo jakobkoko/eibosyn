@@ -10,6 +10,12 @@ import javafx.stage.Stage;
 import model.Player;
 import model.Recorder;
 
+/**
+ * Main Application that builds the scene with all its components
+ * 
+ * @author Nick Hafkemeyer, Jakob Kohlhas, Paul Schade
+ * 
+ */
 public class View extends Application {
 
     private Player player;
@@ -48,7 +54,7 @@ public class View extends Application {
             scene = new Scene(borderPane);
             scene.getStylesheets().add(css);
             scene.addEventHandler(KeyEvent.KEY_PRESSED, center.getControlPane().getKeyListener());
-            primaryStage.setTitle("Hello World");
+            primaryStage.setTitle("EiboSyn");
             primaryStage.setMinWidth(850);
             primaryStage.setMinHeight(700);
             primaryStage.setFullScreen(false);
@@ -58,17 +64,7 @@ public class View extends Application {
             e.printStackTrace();
         }
     }
-
-    public CenterContainer getCenter() {
-		return center;
-	}
-
-	public void stop() {
-        player.quit();
-    }
-
-
-
+    
     public static void main(String[] args) {
         launch(args);
     }

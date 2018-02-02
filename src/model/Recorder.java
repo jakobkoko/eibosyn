@@ -1,16 +1,19 @@
 package model;
 
+import java.io.File;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import Helper.Utility;
-import ddf.minim.AudioOutput;
 import ddf.minim.AudioRecorder;
 import ddf.minim.Recordable;
 import de.hsrm.mi.eibo.simpleplayer.SimpleMinim;
 import javafx.stage.FileChooser;
 
-import java.io.File;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-
+/**
+ * Represents a Recorder
+ * @author Nick Hafkemeyer, Jakob Kohlhas, Paul Schade
+ * 
+ */
 public class Recorder {
 
     private AudioRecorder recorder;
@@ -53,14 +56,23 @@ public class Recorder {
         }
     }
 
+    /**
+     * Starts recording
+     */
     private void beginRecord() {
         recorder.beginRecord();
     }
 
+    /**
+     * Ends recording
+     */
     private void endRecord() {
         recorder.endRecord();
     }
 
+    /**
+     * Saves a recorded file
+     */
     private void save() {
         chooser.setTitle("Save Recording");
         chooser.setInitialDirectory(new File("audioOutput/"));

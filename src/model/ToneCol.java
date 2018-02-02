@@ -1,8 +1,11 @@
 package model;
 
 import java.util.ArrayList;
+
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.input.MouseEvent;
@@ -18,12 +21,14 @@ public class ToneCol extends VBox {
     private ArrayList<ToneButton> toneButtons;
     private ArrayList<EffectButton> effectButtons;
     private final String[] tones = {"B5", "A#5", "A5", "G#5", "G5", "F#5", "F5", "E5", "D#5", "D5", "C#5", "C5"};
+    private SimpleObjectProperty<Tone> activeTone_;
     private ToneButton activeTone;
     private VBox toneSelector;
     private GridPane effectSelector;
     private ArrayList<EffectButton> activeEffects;
     private String curTone;
     private Player player;
+    /* Index der ToneCol im SequencePane */
     private int index;
     private boolean active;
 
@@ -50,6 +55,13 @@ public class ToneCol extends VBox {
                 activeTone = new ToneButton("E");
             }
         };
+
+        this.player.getToneList().getTones().addListener(new ListChangeListener<Tone>() {
+            @Override
+            public void onChanged(Change<? extends Tone> c) {
+
+            }
+        });
 
         player.getLooper().getCurToneIndex().addListener(new ChangeListener<Number>() {
             public String oldId = "col0";
@@ -98,6 +110,7 @@ public class ToneCol extends VBox {
         // Instantiate EffectButtons
         for(int i = 0; i < 3; i++) {
         	EffectButton e = effectButtons.get(i);
+        	e.getStyleClass().add("effectButton" + e.getEffectType().toString());
         	e.setId("effectButton" + e.getEffectType().toString());
             e.setPrefWidth(33);
             e.setOnMouseClicked(effectButtonListener);

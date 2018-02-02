@@ -124,6 +124,11 @@ public class Tone implements Instrument {
 
 	public void setFrequency(float hz) {
 		this.osc.setFrequency(hz);
+		this.freq.setAsHz(hz);
+		if(filterList.size() > 0) {
+			osc.unpatch(adsr);
+			updateFilters();
+		}
 	}
 
 	public void updateAmplitude(float newAmp) {

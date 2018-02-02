@@ -5,14 +5,18 @@ import java.util.Iterator;
 import java.util.List;
 
 import ddf.minim.ugens.Frequency;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class ToneList implements Iterable<Tone>{
-	
+
+	private ObservableList<Tone> tones;
 	private List<Tone> list;
 	private int listIndex;
 	
 	public ToneList() {
 		this.list = new ArrayList<Tone>();
+		tones = FXCollections.observableArrayList(list);
 		listIndex = 0;
 	}
 	
@@ -53,7 +57,11 @@ public class ToneList implements Iterable<Tone>{
 	public List<Tone> getList() {
 		return this.list;
 	}
-	
+
+	public ObservableList<Tone> getTones() {
+		return tones;
+	}
+
 	@Override
 	public Iterator iterator() {
 		// TODO Auto-generated method stub

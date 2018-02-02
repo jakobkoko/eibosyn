@@ -92,19 +92,19 @@
 }
 
 /* effectButton images */
-#effectButtonLowPass{
+.effectButtonLowPass{
 	-fx-background-image: url("../resources/LowPass.png");
     -fx-background-size: 20px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
-#effectButtonHighPass {
+.effectButtonHighPass {
     -fx-background-image: url("../resources/HighPass.png");
     -fx-background-size: 20px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
-#effectButtonBitCrush {
+.effectButtonBitCrush {
     -fx-background-image: url("../resources/BitCrush.png");
     -fx-background-size: 20px;
     -fx-background-repeat: no-repeat;

@@ -46,6 +46,8 @@ public class SequencePane extends HBox {
             toneSequence.get(i).setId("col"+i);
         }
 
+
+
     }
 
 	public ArrayList<ToneCol> getToneSequence() {

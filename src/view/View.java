@@ -1,7 +1,10 @@
 package view;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.FileIO;
@@ -37,6 +40,7 @@ public class View extends Application {
 
             String css = this.getClass().getResource("style.css").toExternalForm();
             scene.getStylesheets().add(css);
+            scene.addEventHandler(KeyEvent.KEY_PRESSED, center.getControlPane().getKeyListener());
             primaryStage.setTitle("Hello World");
             primaryStage.setMinWidth(850);
             primaryStage.setMinHeight(700);
@@ -47,6 +51,8 @@ public class View extends Application {
             e.printStackTrace();
         }
     }
+
+
 
     public void stop() {
         player.quit();

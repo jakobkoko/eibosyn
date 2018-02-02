@@ -1,5 +1,6 @@
 package view;
 
+import Helper.Utility;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -12,11 +13,15 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import model.*;
+
+import javax.rmi.CORBA.Util;
 
 
 public class ControlPane extends HBox {
@@ -82,11 +87,39 @@ public class ControlPane extends HBox {
         playButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                player.play();
+                if (player.isPlaying()) {
+                    player.play();
+                    playButton.setId("playbutton");
+                } else {
+                    player.play();
+                    playButton.setId("stopbutton");
+                }
             }
         });
 
+
+
         this.getChildren().addAll(createRecordButton(recordButtonColor, colorStringProperty), playButton, volume, balance, echo, bpm, beattype);
+    }
+
+    private EventHandler<KeyEvent> keyListener = new EventHandler<KeyEvent>() {
+        @Override
+        public void handle(KeyEvent event) {
+            if(event.getCode() == KeyCode.SPACE) {
+                Utility.debug(event.getCode().toString());
+                if (player.isPlaying()) {
+                    player.play();
+                    playButton.setId("playbutton");
+                } else {
+                    player.play();
+                    playButton.setId("stopbutton");
+                }
+            }
+        }
+    };
+
+    public EventHandler<KeyEvent> getKeyListener() {
+        return keyListener;
     }
 
     private StringProperty createRecordButtonColorStringProperty(final ObjectProperty<Color> recordButtonColor) {
@@ -126,7 +159,7 @@ public class ControlPane extends HBox {
             public void handle(MouseEvent event) {
                 if(flash.getStatus().equals(Animation.Status.RUNNING)) {
                     flash.stop();
-                } else {
+                } else if(flash.getStatus().equals((Animation.Status.STOPPED))){
                     flash.setCycleCount(Timeline.INDEFINITE);
                     flash.setAutoReverse(true);
                     flash.play();

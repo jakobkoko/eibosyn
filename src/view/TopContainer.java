@@ -36,6 +36,7 @@ public class TopContainer extends HBox {
 		this.setWidth(Double.MAX_VALUE);
 		
 		menuBar = new MenuBar();
+		menuBar.setId("menuBar");
 		HBox.setHgrow(menuBar, Priority.ALWAYS);
 		
 		// OpenMenuItem

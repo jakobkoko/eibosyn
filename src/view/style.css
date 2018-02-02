@@ -76,15 +76,17 @@
 #recordbutton {
     -fx-background-radius: 100%;
     -fx-background-color: red;
-    -fx-pref-height: 60px;
-    -fx-pref-width: 60px;
-    -fx-width: 60px;
-    -fx-height: 60px;
+    -fx-pref-height: 40px;
+    -fx-pref-width: 40px;
+    -fx-width: 40px;
+    -fx-height: 40px;
     -fx-border-radius: 100%;
     -fx-border-color: #ff7e74;
     -fx-border-style: solid;
-    -fx-border-width: 2px;
+    -fx-border-width: 1px;
     -fx-cursor: hand;
+    -fx-alignment: baseline-center;
+    -fx-tile-alignment: baseline-center;
 }
 
 #recordbutton:hover {
@@ -174,6 +176,7 @@
     -fx-padding: 10px;
     -fx-border-width: 1px;
     -fx-border-color: #000000;
+    -fx-border-color: #0099cc;
     -fx-border-insets: 5px;
     -fx-pref-height: 180px;
     -fx-pref-width: 180px;
@@ -185,7 +188,7 @@
 }
 #playbutton:hover {
     -fx-cursor:hand;
-    -fx-background-color: #0099cc;
+    -fx-border-color: #0099cc;
     -fx-background-image: url("../resources/play_icon.png");
     -fx-background-size: 30px;
     -fx-background-position: center;
@@ -194,7 +197,7 @@
 
 #stopbutton:hover {
     -fx-cursor:hand;
-    -fx-background-color: #0099cc;
+    -fx-border-color: #317589;
     -fx-background-image: url("../resources/stop_icon.png");
     -fx-background-size: 30px;
     -fx-background-position: center;
@@ -225,4 +228,9 @@
 
 #balanceslider #imageView {
 	-fx-image: url("../resources/speaker_left.png");
+}
+
+#menuBar {
+    -fx-background-color: #317589;
+    -fx-text-fill: #ffffff;
 }

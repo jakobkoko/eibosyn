@@ -4,6 +4,7 @@ import Helper.FileIO;
 import Helper.Utility;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -56,8 +57,10 @@ public class View extends Application {
             scene.addEventHandler(KeyEvent.KEY_PRESSED, center.getControlPane().getKeyListener());
             primaryStage.setTitle("EiboSyn");
             primaryStage.setMinWidth(850);
-            primaryStage.setMinHeight(700);
+            primaryStage.setMaxHeight(650);
+            primaryStage.getIcons().add(new Image("resources/icon.png"));
             primaryStage.setFullScreen(false);
+            primaryStage.setResizable(false);
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (Exception e) {

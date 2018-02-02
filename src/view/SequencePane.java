@@ -30,33 +30,12 @@ public class SequencePane extends HBox {
         player = p;
         this.octave = octave;
         toneSequence = new ArrayList<>();
-        toneNames = new ArrayList<>();
-        toneNamesBox = new VBox();
-        toneNamesBox.setId("toneNamesBox");
-        toneNames.add(new Label("B"));
-        toneNames.add(new Label("A#"));
-        toneNames.add(new Label("A"));
-        toneNames.add(new Label("G#"));
-        toneNames.add(new Label("G"));
-        toneNames.add(new Label("F#"));
-        toneNames.add(new Label("F"));
-        toneNames.add(new Label("E"));
-        toneNames.add(new Label("D#"));
-        toneNames.add(new Label("D"));
-        toneNames.add(new Label("C#"));
-
-        for(Label toneLabel : toneNames) {
-            toneNamesBox.getChildren().addAll(toneLabel);
-        }
-        this.getChildren().add(toneNamesBox);
 
         for (int i = 0; i < toneRowNumber; i += 1) {
             toneSequence.add(new ToneCol(i, player));
             this.getChildren().add(toneSequence.get(i));
             toneSequence.get(i).setId("col"+i);
         }
-
-
 
     }
 

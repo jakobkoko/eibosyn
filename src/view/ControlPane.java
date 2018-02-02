@@ -12,11 +12,14 @@ import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import model.*;
@@ -48,14 +51,16 @@ public class ControlPane extends HBox {
      * @param recorder
      */
     public ControlPane(Player player, Recorder recorder) {
+        this.setFillHeight(true);
+        this.setAlignment(Pos.BASELINE_CENTER);
         playButton = new ImageButton();
         playButton.setId("playbutton");
         volume = new SliderBox("volume", player,14,-80, player.getOut().getGain());
         volume.setId("volumeslider");
         balance = new SliderBox("balance", player, 1, -1);
         balance.setId("balanceslider");
-        echo = new SliderBox("echo", player, 100, 0);
-        echo.setId("echoslider");
+        //echo = new SliderBox("echo", player, 100, 0);
+        //echo.setId("echoslider");
         bpm = new SliderBox("bpm", player, 2400, 120);
         bpm.setId("bpmslider");
         beattype = new SliderBox("beattype", player, 5, 0);
@@ -111,9 +116,10 @@ public class ControlPane extends HBox {
             }
         });
 
-
-
-        this.getChildren().addAll(createRecordButton(recordButtonColor, colorStringProperty), playButton, volume, balance, echo, bpm, beattype);
+        VBox recordButtonHolder = new VBox();
+        recordButtonHolder.getChildren().addAll(createRecordButton(recordButtonColor, colorStringProperty));
+        recordButtonHolder.setPadding(new Insets(65,40,0,0));
+        this.getChildren().addAll(recordButtonHolder, playButton, volume, balance, /*echo,*/ bpm, beattype);
     }
 
     // KeyListener for SpaceKey
@@ -159,6 +165,7 @@ public class ControlPane extends HBox {
     private Button createRecordButton(ObjectProperty<Color> recordButtonColor, StringProperty colorStringProperty) {
 
         Button recordbutton = new Button();
+        recordbutton.setAlignment(Pos.BASELINE_CENTER);
         recordbutton.setId("recordbutton");
         Timeline flash = new Timeline();
         KeyValue kv1 = new KeyValue(recordButtonColor, Color.valueOf("ff7e74"));

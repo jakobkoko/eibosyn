@@ -31,7 +31,7 @@ public class Recorder {
     public Recorder(Recordable o, SimpleMinim m) {
         minim = m;
         output = o;
-        recorder = m.createRecorder(o, "default.wav");
+        //recorder = m.createRecorder(o, "default.wav");
         chooser = new FileChooser();
         recording = false;
     }

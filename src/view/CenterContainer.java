@@ -30,4 +30,8 @@ public class CenterContainer extends VBox {
     public ControlPane getControlPane() {
         return controlPane;
     }
+    
+    public SequencePane getSequencePane() {
+    	return this.sequencePane;
+    }
 }

@@ -1,7 +1,6 @@
 package view;
 
 import java.io.File;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Menu;
@@ -13,7 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import model.FileIO;
+import Helper.FileIO;
 import model.Player;
 
 public class TopContainer extends HBox {

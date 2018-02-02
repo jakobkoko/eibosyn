@@ -1,4 +1,4 @@
-package model;
+package Helper;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -7,18 +7,26 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import model.Player;
+import model.Tone;
+import model.ToneCol;
+import view.CenterContainer;
+import view.ToneButton;
+
 public class FileIO {
 
 	private BufferedWriter bw;
 	private BufferedReader br;
+	private CenterContainer center;
 
 	/**
 	 * Creates a default instance of FileIO. 
 	 * It offers you access to IO-methods for presetFiles
 	 */
-	public FileIO() {
+	public FileIO(CenterContainer center) {
 		this.bw = null;
 		this.br = null;
+		this.center = center;
 	}
 
 	/**
@@ -99,8 +107,19 @@ public class FileIO {
 			if (line.startsWith("#"))
 				return toneNumber;
 			else if (line.startsWith("freq")) {
+				ToneCol cur = center.getSequencePane().getList().get(toneNumber);
 				// Setting the frequency of the Tone at index toneNumber
-				player.getToneList().getList().get(toneNumber).setFrequency(Float.parseFloat((line.substring(5, 12))));
+				Tone t = player.getToneList().getList().get(toneNumber);
+				float f = Float.parseFloat((line.substring(5, 12)));
+				t.setFrequency(f);
+				t.unmute();
+				for(ToneButton b: cur.getToneButtons()) {
+					if(b.getTone().equals(HzToString(f))) {
+						cur.selectButton(b);
+					}
+				}
+				
+				
 				return ++toneNumber;
 			}
 			else if (line.startsWith("fx")) {
@@ -112,5 +131,13 @@ public class FileIO {
 			}
 		}
 		return 0;
+	}
+	
+	private String HzToString(float f) {
+		String freq = "";
+		
+		
+		
+		return freq;
 	}
 }

@@ -215,6 +215,7 @@ public class Tone implements Instrument {
 
 	public void setFrequency(Frequency frequency) {
 		osc.setFrequency(frequency);
+		this.freq.setAsHz(frequency.asHz());
 		if(filterList.size() > 0) {
 			osc.unpatch(adsr);
 			updateFilters();

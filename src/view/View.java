@@ -1,17 +1,14 @@
 package view;
 
+import Helper.FileIO;
+import Helper.Utility;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import Helper.FileIO;
 import model.Player;
 import model.Recorder;
-import Helper.Utility;
-import model.*;
 
 public class View extends Application {
 
@@ -40,10 +37,10 @@ public class View extends Application {
             String css = this.getClass().getResource("style.css").toExternalForm();
             
             // View
-            borderPane = new BorderPane();
             center = new CenterContainer(player, recorder);
-            top = new TopContainer(player, fileIO);
             fileIO = new FileIO(center);
+            borderPane = new BorderPane();
+            top = new TopContainer(player, fileIO);
 
             borderPane.setTop(top);
             borderPane.setCenter(center);

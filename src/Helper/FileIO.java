@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import ddf.minim.ugens.Frequency;
 import model.Player;
@@ -76,8 +77,16 @@ public class FileIO {
 			String line;
 			int toneNumber = -1;
 			
+			ArrayList<ToneCol> toneSequence = center.getSequencePane().getToneSequence();
+			for (int i = 0; i < toneSequence.size(); i++)  {
+				ToneCol toneCol = toneSequence.get(i);
+				for (ToneButton toneButton : toneCol.getToneButtons()) {
+					toneCol.deselectButton(toneButton);
+				}
+			}
+			
 			while ((line = br.readLine()) != null) {
-				toneNumber = parseLine(line, toneNumber, player);
+				toneNumber = parseLine(line, toneNumber, toneSequence, player);
 			}
 		} catch(IOException e) {
 			e.printStackTrace();
@@ -98,7 +107,7 @@ public class FileIO {
 	 * @param player
 	 * @return toneNumber
 	 */
-	private int parseLine(String line, int toneNumber, Player player) {
+	private int parseLine(String line, int toneNumber, ArrayList<ToneCol> toneSequence, Player player) {
 		if (toneNumber == -1) {
 			line.charAt(0);
 			//Set number of tones shown in sequencePane -> missing
@@ -108,16 +117,35 @@ public class FileIO {
 			if (line.startsWith("#"))
 				return toneNumber;
 			else if (line.startsWith("freq")) {
-				ToneCol currentToneCol = center.getSequencePane().getList().get(toneNumber);
+				ToneCol currentToneCol = toneSequence.get(toneNumber);
 				Tone t = player.getToneList().getList().get(toneNumber);
-				
+				float f;
 				// Setting the frequency of the Tone at index toneNumber
-				float f = Float.parseFloat(line.substring(5, 12));
-				t.setFrequency(Frequency.ofHertz(f));
-				t.unmute();
+				switch (line.length()) {
+				case 10: f = Float.parseFloat(line.substring(5, 10));
+				break;
+				case 11: f = Float.parseFloat(line.substring(5, 11));
+				break;
+				case 12: f = Float.parseFloat(line.substring(5, 12));
+				break;
+				case 13: f = Float.parseFloat(line.substring(5, 13));
+				break;
+				case 14: f = Float.parseFloat(line.substring(5, 14));
+				break;
+				default: System.out.println("Error while reading frequency of tone: " + toneNumber);
+				System.out.println(line.length());
+				return ++toneNumber;
+				}
 				Frequency freq = Frequency.ofHertz(f);
-				for(ToneButton b : currentToneCol.getToneButtons()) {
-					if(Frequency.ofPitch(b.getTone()).equals(freq))
+				t.setFrequency(freq);
+				t.unmute();
+				
+				for (ToneButton b : currentToneCol.getToneButtons()) {
+					Frequency currentFrequency = Frequency.ofPitch(b.getTone());
+					
+					// Hier buttonFreq auf vier Nachkommastellen kürzen!!!!!!!!
+					float buttonFreq = currentFrequency.asHz();
+					if(freq.asHz() == buttonFreq)
 						currentToneCol.selectButton(b);
 				}
 				return ++toneNumber;

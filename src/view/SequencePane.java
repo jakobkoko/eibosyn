@@ -52,9 +52,4 @@ public class SequencePane extends HBox {
 		return toneSequence;
 	}
 
-	public ArrayList<ToneCol> getList() {
-		// TODO Auto-generated method stub
-		return toneSequence;
-	}
-
 }

@@ -21,7 +21,7 @@ public class ToneCol extends VBox {
     private ArrayList<ToneButton> toneButtons;
     private ArrayList<EffectButton> effectButtons;
     private final String[] tones = {"B5", "A#5", "A5", "G#5", "G5", "F#5", "F5", "E5", "D#5", "D5", "C#5", "C5"};
-    private SimpleObjectProperty<Tone> activeTone_;
+//    private SimpleObjectProperty<Tone> activeTone_;
     private ToneButton activeTone;
     private VBox toneSelector;
     private GridPane effectSelector;
@@ -139,6 +139,10 @@ public class ToneCol extends VBox {
     public void selectButton(ToneButton button) {
     	activeTone = button;
         activeTone.setId("active");
+    }
+    
+    public void deselectButton(ToneButton button) {
+    	button.setId("inactive");
     }
     
     public ArrayList<ToneButton> getToneButtons() {

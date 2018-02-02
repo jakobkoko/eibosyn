@@ -23,7 +23,11 @@ import model.*;
 
 import javax.rmi.CORBA.Util;
 
-
+/**
+ * Represents a ControlPane
+ * @author Nick Hafkemeyer, Jakob Kohlhas, Paul Schade
+ * 
+ */
 public class ControlPane extends HBox {
 
     private Button playButton;
@@ -38,6 +42,11 @@ public class ControlPane extends HBox {
     final ObjectProperty<Color> recordButtonColor = new SimpleObjectProperty<>(Color.RED);
     final StringProperty colorStringProperty = createRecordButtonColorStringProperty(recordButtonColor);
 
+    /**
+     * Creates an instance of ControlPane
+     * @param player
+     * @param recorder
+     */
     public ControlPane(Player player, Recorder recorder) {
         playButton = new ImageButton();
         playButton.setId("playbutton");
@@ -56,6 +65,7 @@ public class ControlPane extends HBox {
 
         this.setSpacing(30);
 
+        // ChangeListener for bpm
         bpm.getSlider().valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -63,6 +73,7 @@ public class ControlPane extends HBox {
             }
         });
 
+        // ChangeListener for balance
         balance.getSlider().valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -70,6 +81,7 @@ public class ControlPane extends HBox {
             }
         });
 
+        // ChangeListener for beattype
         beattype.getSlider().valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -77,6 +89,7 @@ public class ControlPane extends HBox {
             }
         });
 
+        // ChangeListener for volume
         volume.getSlider().valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -84,6 +97,7 @@ public class ControlPane extends HBox {
             }
         });
 
+        // PlayButton ActionEvent
         playButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -102,6 +116,7 @@ public class ControlPane extends HBox {
         this.getChildren().addAll(createRecordButton(recordButtonColor, colorStringProperty), playButton, volume, balance, echo, bpm, beattype);
     }
 
+    // KeyListener for SpaceKey
     private EventHandler<KeyEvent> keyListener = new EventHandler<KeyEvent>() {
         @Override
         public void handle(KeyEvent event) {
@@ -118,6 +133,10 @@ public class ControlPane extends HBox {
         }
     };
 
+    /**
+     * Gets the KeyListener
+     * @return
+     */
     public EventHandler<KeyEvent> getKeyListener() {
         return keyListener;
     }
@@ -138,7 +157,6 @@ public class ControlPane extends HBox {
     }
 
     private Button createRecordButton(ObjectProperty<Color> recordButtonColor, StringProperty colorStringProperty) {
-
 
         Button recordbutton = new Button();
         recordbutton.setId("recordbutton");

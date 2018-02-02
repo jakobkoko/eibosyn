@@ -9,37 +9,35 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
-import javax.rmi.CORBA.Util;
-
+/**
+ * Represents a Player
+ * @author Nick Hafkemeyer, Jakob Kohlhas, Paul Schade
+ * 
+ */
 public class Player {
 	private SimpleMinim minim;
 	private AudioOutput out;
 	private ToneList toneList = new ToneList();
-	private Tone currentTone;
 	private SimpleFloatProperty bpm;
 	private SimpleObjectProperty<BeatType> beattype;
 	private Looper looper;
 	private boolean playing;
 
-	public void setToneList(int index, String note) {
-		//toneList.setTone(index, note);
-		toneList.getList().get(index).setFrequency(Frequency.ofPitch(note));
-		Utility.debug(String.valueOf(toneList.getList().get(index).getFrequency().asHz()));
-	}
-
+	/**
+	 * Creates a default instance of Player
+	 */
 	public Player() {
 		bpm = new SimpleFloatProperty();
 		beattype = new SimpleObjectProperty<BeatType>();
-
 		minim = new SimpleMinim(true);
 
+		// Setting default tempo values
 		bpm.set(120);
 		beattype.set(BeatType.WHOLE);
 		out = minim.getLineOut();
 		out.setTempo(bpm.floatValue());
 
-		//currentTone = new Tone(Frequency.ofHertz(440), 0, out);
-
+		// Istantiating and adding default tones to ToneList
 		Tone tone1 = new Tone(Frequency.ofPitch("C"), 0, out);
 		Tone tone2 = new Tone(Frequency.ofPitch("E"), 0, out);
 		Tone tone3 = new Tone(Frequency.ofPitch("G"), 0, out);
@@ -58,8 +56,10 @@ public class Player {
 		toneList.addTone(tone7);
 		toneList.addTone(tone8);
 
+		// Instatiate new Looper Thread
 		looper = new Looper(toneList, out, bpm, beattype);
 
+		// ChangeListener for bpm
 		bpm.addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -71,6 +71,7 @@ public class Player {
 			}
 		});
 
+		// ChangeListener for BeatType
 		beattype.addListener(new ChangeListener<BeatType>() {
 			@Override
 			public void changed(ObservableValue<? extends BeatType> observable, BeatType oldValue, BeatType newValue) {
@@ -80,36 +81,75 @@ public class Player {
 
 	}
 
+	/**
+	 * Sets the Looper to playing. Also changes the boolean flag playing.
+	 */
 	public void play() {
 		looper.setPlaying();
 		playing = !playing;
 	}
 
-	public void setBpm(float bpm) {
-		this.bpm.set(bpm);
-	}
-
+	/**
+	 * 
+	 * @return looping thread
+	 */
 	public Looper getLooper() {
 		return looper;
 	}
 
-	public void setBalance(float f) {
-		out.setBalance(f);
-	}
-
-	public void quit() {
-		out.close();
-		System.exit(1);
-	}
-
+	/**
+	 * 
+	 * @return list of Tone Objects
+	 */
 	public ToneList getToneList() {
 		return this.toneList;
 	}
 	
+	/**
+	 * 
+	 * @param index
+	 * @return tone from toneList at the specified index
+	 */
     public Tone getToneFromToneList(int index) {
 		return toneList.getList().get(index);
     }
+    
+    /**
+     * 
+     * @return SimpleMinim
+     */
+	public SimpleMinim getMinim() {
+		return minim;
+	}
 
+	/**
+	 * 
+	 * @return AudioOutput
+	 */
+	public AudioOutput getOut() {
+		return out;
+	}
+
+	/**
+	 * Sets the AudioOutput to the right or the left channel
+	 * @param f
+	 */
+	public void setBalance(float f) {
+		out.setBalance(f);
+	}
+
+	/**
+	 * Sets the bpm property
+	 * @param bpm
+	 */
+	public void setBpm(float bpm) {
+		this.bpm.set(bpm);
+	}
+	
+	/**
+	 * Sets the beattype property
+	 * @param beattype
+	 */
 	public void setBeattype(int beattype) {
 		switch(beattype) {
 			case 0:
@@ -132,16 +172,30 @@ public class Player {
 				break;
 		}
 	}
-
-	public SimpleMinim getMinim() {
-		return minim;
+	
+	/**
+	 * Sets the frequency of a specified tone in toneList
+	 * @param index
+	 * @param note
+	 */
+	public void setToneFrequency(int index, String note) {
+		toneList.getList().get(index).setFrequency(Frequency.ofPitch(note));
+		Utility.debug(String.valueOf(toneList.getList().get(index).getFrequency().asHz()));
 	}
-
-	public AudioOutput getOut() {
-		return out;
-	}
-
+	
+	/**
+	 * Indicates the value of the boolean flag playing 
+	 * @return
+	 */
 	public boolean isPlaying() {
 		return playing;
+	}
+	
+	/**
+	 * Quits the program
+	 */
+	public void quit() {
+		out.close();
+		System.exit(1);
 	}
 }

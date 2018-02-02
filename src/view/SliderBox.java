@@ -8,6 +8,11 @@ import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
 import model.Player;
 
+/**
+ * Represents a SliderBox
+ * @author Nick Hafkemeyer, Jakob Kohlhas, Paul Schade
+ * 
+ */
 public class SliderBox extends VBox {
 
     private Slider slider;
@@ -17,6 +22,13 @@ public class SliderBox extends VBox {
     private int min;
     private float cur;
 
+    /**
+     * Creates an instance of SliderBox
+     * @param text
+     * @param player
+     * @param max
+     * @param min
+     */
     public SliderBox(String text, Player player, int max, int min) {
         this.max = max;
         this.min = min;
@@ -69,14 +81,24 @@ public class SliderBox extends VBox {
         this.getChildren().addAll(slider, label);
     }
 
+    /**
+     * Creates an instance of SliderBox
+     * @param text
+     * @param player
+     * @param max
+     * @param min
+     * @param cur
+     */
     public SliderBox(String text, Player player, int max, int min, float cur) {
         this(text, player, max, min);
         this.cur = cur;
         slider.setValue(cur);
     }
-
-
-
+    
+    /**
+     * Gets the Slider Object
+     * @return
+     */
     public Slider getSlider() {
         return slider;
     }

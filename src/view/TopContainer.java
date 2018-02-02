@@ -15,6 +15,11 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import Helper.FileIO;
 import model.Player;
 
+/**
+ * Represents a TopContainer
+ * @author Nick Hafkemeyer, Jakob Kohlhas, Paul Schade
+ * 
+ */
 public class TopContainer extends HBox {
 
 	private MenuBar menuBar;
@@ -22,12 +27,18 @@ public class TopContainer extends HBox {
 	private MenuItem openMenuItem;
 	private MenuItem saveMenuItem;
 	
+	/**
+	 * Creates an instance of TopContainer
+	 * @param player
+	 * @param fileIO
+	 */
 	public TopContainer(Player player, FileIO fileIO) {
 		this.setWidth(Double.MAX_VALUE);
 		
 		menuBar = new MenuBar();
 		HBox.setHgrow(menuBar, Priority.ALWAYS);
 		
+		// OpenMenuItem
 		fileMenu = new Menu("File");
 		openMenuItem = new MenuItem("Open Preset..", new ImageView(new Image("resources/preset.png")));
 		openMenuItem.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
@@ -42,6 +53,8 @@ public class TopContainer extends HBox {
 				}
 			}
 		});
+		
+		// SaveMenuItem
 		saveMenuItem = new MenuItem("Save Preset..", new ImageView(new Image("resources/save.png")));	
 		saveMenuItem.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
 			@Override

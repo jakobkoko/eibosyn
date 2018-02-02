@@ -26,4 +26,12 @@ public class CenterContainer extends VBox {
 
         this.getChildren().addAll(sequencePane, controlPane);
     }
+
+    public ControlPane getControlPane() {
+        return controlPane;
+    }
+    
+    public SequencePane getSequencePane() {
+    	return this.sequencePane;
+    }
 }

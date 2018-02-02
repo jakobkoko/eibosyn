@@ -20,7 +20,7 @@
     -fx-spacing: 0px;
     -fx-border-width: 1px;
     /*-fx-border-color: yellow;*/
-    -fx-pref-height: 33px;
+    -fx-pref-height: 25px;
 }
 #sequencePane .button {
     -fx-border-width: 0.1px;
@@ -61,16 +61,54 @@
     -fx-background-color: #666666;
     -fx-border-color: #000000;
 }
+#sequencePane #col0 .button:hover,
+#sequencePane #col1 .button:hover,
+#sequencePane #col2 .button:hover,
+#sequencePane #col3 .button:hover,
+#sequencePane #col4 .button:hover,
+#sequencePane #col5 .button:hover,
+#sequencePane #col6 .button:hover,
+#sequencePane #col7 .button:hover {
+    -fx-background-color: #0099cc;
+    -fx-cursor:hand;
+}
+
+#recordbutton {
+    -fx-background-radius: 100%;
+    -fx-background-color: red;
+    -fx-pref-height: 60px;
+    -fx-pref-width: 60px;
+    -fx-width: 60px;
+    -fx-height: 60px;
+    -fx-border-radius: 100%;
+    -fx-border-color: #ff7e74;
+    -fx-border-style: solid;
+    -fx-border-width: 2px;
+    -fx-cursor: hand;
+}
+
+#recordbutton:hover {
+    -fx-background-color: #a40006;
+}
 
 /* effectButton images */
 #effectButtonLowPass{
-	-fx-image: url("../resources/LowPass.png");
+	-fx-background-image: url("../resources/LowPass.png");
+    -fx-background-size: 20px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
 }
-#sequencePane #col3 #effectButtonHighPass .imageView {
-	-fx-image: url("../resources/HighPass.png");
+#effectButtonHighPass {
+    -fx-background-image: url("../resources/HighPass.png");
+    -fx-background-size: 20px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
 }
-#sequencePane #col3 #effectButtonBitCrush .imageView {
-	-fx-image: url("../resources/BitCrushPass.png");
+#effectButtonBitCrush {
+    -fx-background-image: url("../resources/BitCrush.png");
+    -fx-background-size: 20px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
 }
 
 /* active effect buttons */
@@ -125,10 +163,44 @@
     -fx-pref-height: 180px;
     -fx-pref-width: 180px;
     -fx-alignment: baseline-center;
+    -fx-background-image: url("../resources/play_icon.png");
+    -fx-background-size: 30px;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
 }
-#playbutton #imgView {
-	-fx-image: url("../resources/play_icon.png");
+
+#stopbutton {
+    -fx-background-color: #1a1a1a;
+    -fx-padding: 10px;
+    -fx-border-width: 1px;
+    -fx-border-color: #000000;
+    -fx-border-insets: 5px;
+    -fx-pref-height: 180px;
+    -fx-pref-width: 180px;
+    -fx-alignment: baseline-center;
+    -fx-background-image: url("../resources/stop_icon.png");
+    -fx-background-size: 30px;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
 }
+#playbutton:hover {
+    -fx-cursor:hand;
+    -fx-background-color: #0099cc;
+    -fx-background-image: url("../resources/play_icon.png");
+    -fx-background-size: 30px;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
+
+#stopbutton:hover {
+    -fx-cursor:hand;
+    -fx-background-color: #0099cc;
+    -fx-background-image: url("../resources/stop_icon.png");
+    -fx-background-size: 30px;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
+
 #volumeslider, #echoslider, #bpmslider, #beattypeslider, #balanceslider {
     -fx-background-color: #1a1a1a;
     -fx-padding: 10px;

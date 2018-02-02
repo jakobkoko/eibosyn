@@ -1,6 +1,8 @@
 package view;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -45,5 +47,14 @@ public class SequencePane extends HBox {
         }
 
     }
+
+	public ArrayList<ToneCol> getToneSequence() {
+		return toneSequence;
+	}
+
+	public ArrayList<ToneCol> getList() {
+		// TODO Auto-generated method stub
+		return toneSequence;
+	}
 
 }

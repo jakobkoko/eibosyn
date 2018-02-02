@@ -1,5 +1,6 @@
 package model;
 
+import Helper.Utility;
 import ddf.minim.AudioOutput;
 import ddf.minim.ugens.Frequency;
 import de.hsrm.mi.eibo.simpleplayer.SimpleMinim;
@@ -7,6 +8,8 @@ import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+
+import javax.rmi.CORBA.Util;
 
 public class Player {
 	private SimpleMinim minim;
@@ -16,10 +19,12 @@ public class Player {
 	private SimpleFloatProperty bpm;
 	private SimpleObjectProperty<BeatType> beattype;
 	private Looper looper;
+	private boolean playing;
 
 	public void setToneList(int index, String note) {
 		//toneList.setTone(index, note);
 		toneList.getList().get(index).setFrequency(Frequency.ofPitch(note));
+		Utility.debug(String.valueOf(toneList.getList().get(index).getFrequency().asHz()));
 	}
 
 	public Player() {
@@ -77,6 +82,7 @@ public class Player {
 
 	public void play() {
 		looper.setPlaying();
+		playing = !playing;
 	}
 
 	public void setBpm(float bpm) {
@@ -96,6 +102,10 @@ public class Player {
 		System.exit(1);
 	}
 
+	public ToneList getToneList() {
+		return this.toneList;
+	}
+	
     public Tone getToneFromToneList(int index) {
 		return toneList.getList().get(index);
     }
@@ -129,5 +139,9 @@ public class Player {
 
 	public AudioOutput getOut() {
 		return out;
+	}
+
+	public boolean isPlaying() {
+		return playing;
 	}
 }

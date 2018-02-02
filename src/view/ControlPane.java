@@ -110,9 +110,11 @@ public class ControlPane extends HBox {
         Button recordbutton = new Button();
         recordbutton.setId("recordbutton");
         Timeline flash = new Timeline();
-        KeyValue kv = new KeyValue(recordButtonColor, Color.valueOf("ff7e74"));
-        KeyFrame kf = new KeyFrame(Duration.millis(300), kv);
-        flash.getKeyFrames().add(kf);
+        KeyValue kv1 = new KeyValue(recordButtonColor, Color.valueOf("ff7e74"));
+        KeyValue kv2 = new KeyValue(recordButtonColor, Color.RED);
+        KeyFrame kf1 = new KeyFrame(Duration.millis(300), kv1);
+        KeyFrame kf2 = new KeyFrame(Duration.millis(300), kv2);
+        flash.getKeyFrames().addAll(kf1, kf2);
 
         recordbutton.styleProperty().bind(
                 new SimpleStringProperty("-fx-background-color:")
